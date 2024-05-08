@@ -6,8 +6,8 @@ body {
     font-family: "Raleway", sans-serif;
   }
 
-.navbar-brand {
-        max-width: 10%;
-        height: auto;
+#logo {
+        width: 30px !important;
+        height: 30px !important;
 }
 
