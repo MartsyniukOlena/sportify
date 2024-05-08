@@ -41,11 +41,77 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Sportswear
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="dropdown-item nav-link text-dark {% if request.path == logout_url %}active"
+                                    aria-current="page{% endif %}" href="">Tops</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item nav-link text-dark {% if request.path == myaccount_url %}active"
+                                    aria-current="page{% endif %}" href="">Bottoms</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item nav-link text-dark {% if request.path == signup_url %}active"
+                                    aria-current="page{% endif %}" href="">Suits</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark {% if request.path == login_url %}active"
+                                    aria-current="page{% endif %}" href="">Footwear</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark {% if request.path == login_url %}active"
+                                    aria-current="page{% endif %}" href="">All Clothing</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Equipment
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="dropdown-item nav-link text-dark {% if request.path == logout_url %}active"
+                                    aria-current="page{% endif %}" href="">Protective Gear</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item nav-link text-dark {% if request.path == myaccount_url %}active"
+                                    aria-current="page{% endif %}" href="">Game Equipment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item nav-link text-dark {% if request.path == signup_url %}active"
+                                    aria-current="page{% endif %}" href="">Training Equipment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark {% if request.path == login_url %}active"
+                                    aria-current="page{% endif %}" href="">All Equipment</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Special Offers
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="dropdown-item nav-link text-dark {% if request.path == logout_url %}active"
+                                    aria-current="page{% endif %}" href="">Sale</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item nav-link text-dark {% if request.path == myaccount_url %}active"
+                                    aria-current="page{% endif %}" href="">New Arrivals</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item nav-link text-dark {% if request.path == signup_url %}active"
+                                    aria-current="page{% endif %}" href="">Nutrition and Training Program</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
@@ -62,6 +128,10 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% if user.is_authenticated %}
+                            {% if request.user.is_superuser %}
+                            <a class="dropdown-item nav-link text-dark {% if request.path == logout_url %}active"
+                            aria-current="page{% endif %}" href="">Product Management</a>
+                                {% endif %}
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == logout_url %}active"
                                     aria-current="page{% endif %}" href="">Sign Out</a>
@@ -78,10 +148,6 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark {% if request.path == login_url %}active"
                                     aria-current="page{% endif %}" href="">Sign In</a>
-                            </li>
-    
-                            <li>
-                                <hr class="dropdown-divider" />
                             </li>
                             {% endif %}
                         </ul>
