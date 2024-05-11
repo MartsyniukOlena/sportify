@@ -52,19 +52,19 @@
                         <ul class="dropdown-menu">
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == logout_url %}active"
-                                    aria-current="page{% endif %}" href="">Tops</a>
+                                    aria-current="page{% endif %}" href="{% url 'products' %}?category=sportswear-tops">Tops</a>
                             </li>
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == myaccount_url %}active"
-                                    aria-current="page{% endif %}" href="">Bottoms</a>
+                                    aria-current="page{% endif %}" href="{% url 'products' %}?category=sportswear-bottoms">Bottoms</a>
                             </li>
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == signup_url %}active"
-                                    aria-current="page{% endif %}" href="">Suits</a>
+                                    aria-current="page{% endif %}" href="{% url 'products' %}?category=sportswear-suits">Suits</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark {% if request.path == login_url %}active"
-                                    aria-current="page{% endif %}" href="">Footwear</a>
+                                    aria-current="page{% endif %}" href="{% url 'products' %}?category=footwear">Footwear</a>
                             </li>
                         </ul>
                     </li>
@@ -76,15 +76,15 @@
                         <ul class="dropdown-menu">
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == logout_url %}active"
-                                    aria-current="page{% endif %}" href="">Protective Gear</a>
+                                    aria-current="page{% endif %}" href="{% url 'products' %}?category=protective-gear">Protective Gear</a>
                             </li>
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == myaccount_url %}active"
-                                    aria-current="page{% endif %}" href="">Game Equipment</a>
+                                    aria-current="page{% endif %}" href="{% url 'products' %}?category=game-equipment">Game Equipment</a>
                             </li>
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == signup_url %}active"
-                                    aria-current="page{% endif %}" href="">Training Equipment</a>
+                                    aria-current="page{% endif %}" href="{% url 'products' %}?category=training-equipment">Training Equipment</a>
                             </li>
                         </ul>
                     </li>
@@ -96,11 +96,11 @@
                         <ul class="dropdown-menu">
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == logout_url %}active"
-                                    aria-current="page{% endif %}" href="">Sale</a>
+                                    aria-current="page{% endif %}" href="{% url 'products' %}?category=sale">Sale</a>
                             </li>
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == myaccount_url %}active"
-                                    aria-current="page{% endif %}" href="">New Arrivals</a>
+                                    aria-current="page{% endif %}" href="{% url 'products' %}?category=new-arrivals">New Arrivals</a>
                             </li>
                             <li class="nav-item">
                                 <a class="dropdown-item nav-link text-dark {% if request.path == signup_url %}active"
