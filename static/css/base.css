@@ -11,3 +11,16 @@ body {
     background: #212529 !important;
     color: #fff !important;
 }
+
+.btt-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.btt-link {
+  cursor: pointer;
+}
