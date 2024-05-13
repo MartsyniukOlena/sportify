@@ -124,57 +124,7 @@
     {% endblock %}
 
     {% block postloadjs %}
-    <script type="text/javascript">
-
-        // Disable +/- buttons outside 1-99 range
-        function handleEnableDisable(itemId) {
-        var currentValue = parseInt(document.getElementById('id_qty_' + itemId).value);
-        var minusDisabled = currentValue < 2;
-        var plusDisabled = currentValue > 98;
-        document.getElementById('decrement-qty_' + itemId).disabled = minusDisabled;
-        document.getElementById('increment-qty_' + itemId).disabled = plusDisabled;
-        }
-    
-        // Ensure proper enabling/disabling of all inputs on page load
-        var allQtyInputs = document.querySelectorAll('.qty_input');
-        for (var i = 0; i < allQtyInputs.length; i++) {
-            var itemId = allQtyInputs[i].getAttribute('data-item_id');
-            handleEnableDisable(itemId);
-        }
-    
-        // Check enable/disable every time the input is changed
-        var qtyInputs = document.querySelectorAll('.qty_input');
-        qtyInputs.forEach(function (input) {
-            input.addEventListener('change', function () {
-                var itemId = this.getAttribute('data-item_id');
-                handleEnableDisable(itemId);
-            });
-        });
-    
-        // Increment quantity
-        document.querySelectorAll('.increment-qty').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                var closestInput = this.closest('.input-group').querySelector('.qty_input');
-                var currentValue = parseInt(closestInput.value);
-                closestInput.value = currentValue + 1;
-                var itemId = this.getAttribute('data-item_id');
-                handleEnableDisable(itemId);
-            });
-        });
-
-        // Decrement quantity
-        document.querySelectorAll('.decrement-qty').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                var closestInput = this.closest('.input-group').querySelector('.qty_input');
-                var currentValue = parseInt(closestInput.value);
-                closestInput.value = currentValue - 1;
-                var itemId = this.getAttribute('data-item_id');
-                handleEnableDisable(itemId);
-            });
-        });
-
-    </script>
+    {{ block.super }}
+    {% include 'products/includes/quantity_input_script.html' %}
     {% endblock %}
 
