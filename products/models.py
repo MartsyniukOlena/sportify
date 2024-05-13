@@ -26,6 +26,27 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+    rating = models.IntegerField(default=0, choices=(
+        (0, '0 stars'),
+        (1, '1 star'),
+        (2, '2 stars'),
+        (3, '3 stars'),
+        (4, '4 stars'),
+        (5, '5 stars'),
+    ))
+
+    def average_rating(self):
+        ratings = self.ratings.all()
+        if ratings:
+            avg_rating = sum(rating.rating for rating in ratings) / len(ratings)
+            return round(avg_rating, 2)
+        else:
+            return 0
+
+
+    def __str__(self):
+        return self.name
+
 
     def __str__(self):
         return self.name
