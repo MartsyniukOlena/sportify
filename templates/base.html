@@ -170,6 +170,24 @@
 </header>
 
     {% if messages %}
+    <div class="message-container">
+        {% for message in messages %}
+            {% with message.level as level %}
+                {% if level == 40 %}
+                    {% include 'toasts/toast_error.html' %}
+                {% elif level == 30 %}
+                    {% include 'toasts/toast_warning.html' %}
+                {% elif level == 25 %}
+                    {% include 'toasts/toast_success.html' %}
+                {% else %}
+                    {% include 'toasts/toast_info.html' %}
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if messages %}
         <div class="message-container"></div>
     {% endif %}
 
@@ -177,9 +195,6 @@
     {% endblock %}
 
     {% block product_detail %}
-    {% endblock %}
-
-    {% block postloadjs %}
     {% endblock %}
 
     <footer class="footer mt-auto py-3 border-top">
@@ -211,6 +226,21 @@
             </div>
         </div>
     </footer>
+
+     {% block postloadjs %}
+         <script type="text/javascript">
+             document.addEventListener("DOMContentLoaded", function() {
+                 var toastElements = document.querySelectorAll('.toast');
+                 toastElements.forEach(function(element) {
+                     var toast = new bootstrap.Toast(element);
+                     toast.show();
+                 });
+             });
+         </script>
+     {% endblock %}
+
+
+
 
     <!-- Bootstrap’s JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
