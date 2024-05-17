@@ -137,38 +137,24 @@
 {% include 'products/includes/quantity_input_script.html' %}
 
 <script type="text/javascript">
-   // Update quantity on click
-document.querySelector('.update-link').addEventListener('click', function(e) {
-    var form = document.querySelector('.update-form');
-    form.submit();
-});
+    // Update quantity on click
+    $('.update-link').click(function(e) {
+        var form = $(this).prev('.update-form');
+        form.submit();
+    })
 
-// Remove item and reload on click
-    document.querySelector('.remove-item').addEventListener('click', function (e) {
+    // Remove item and reload on click
+    $('.remove-item').click(function(e) {
         var csrfToken = "{{ csrf_token }}";
-        var itemId = this.getAttribute('id').split('remove_')[1];
-        var size = this.getAttribute('data-product_size');
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var size = $(this).data('product_size');
         var url = `/bag/remove/${itemId}/`;
-        var data = { 'csrfmiddlewaretoken': csrfToken, 'product_size': size };
+        var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
-            },
-            body: JSON.stringify(data)
-        })
-            .then(function (response) {
-                if (response.ok) {
-                    location.reload();
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-            })
-            .catch(function (error) {
-                console.error('There was a problem with the fetch operation:', error);
-            });
-    });
+        $.post(url, data)
+         .done(function() {
+             location.reload();
+         });
+    })
 </script>
 {% endblock %}
