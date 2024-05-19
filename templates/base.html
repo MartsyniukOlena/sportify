@@ -128,13 +128,13 @@
                 </form>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">My Profile</a>
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Profile</a>
                         
                         <div class="dropdown-menu">
                             {% if user.is_authenticated %}
                             {% if request.user.is_superuser %}
                             <a class="dropdown-item nav-link text-dark"
-                            aria-current="page" href="">Product Management</a>
+                            aria-current="page" href="{% url 'add_product' %}">Add Product</a>
                                 {% endif %}
                             
                                 <a class="dropdown-item nav-link text-dark"
