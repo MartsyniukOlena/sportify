@@ -58,28 +58,26 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'products' %}">All Products</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
                             Sportswear
                         </a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item">
+                        <div class="dropdown-menu">
                                 <a class="dropdown-item nav-link text-dark"
                                     aria-current="page" href="{% url 'products' %}?category=sportswear-tops">Tops</a>
-                            </li>
-                            <li class="nav-item">
+                            
+                            
                                 <a class="dropdown-item nav-link text-dark"
                                     aria-current="page" href="{% url 'products' %}?category=sportswear-bottoms">Bottoms</a>
-                            </li>
-                            <li class="nav-item">
+                           
+                            
                                 <a class="dropdown-item nav-link text-dark"
                                     aria-current="page" href="{% url 'products' %}?category=sportswear-suits">Suits</a>
-                            </li>
-                            <li class="nav-item">
+                            
+                           
                                 <a class="nav-link text-dark"
                                     aria-current="page" href="{% url 'products' %}?category=footwear">Footwear</a>
-                            </li>
-                        </ul>
+                           
+                        </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -128,37 +126,35 @@
                         Search
                     </button>
                 </form>
-                <ul class="navbar-nav mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            My Profile
-                        </a>
-                        <ul class="dropdown-menu">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">My Profile</a>
+                        
+                        <div class="dropdown-menu">
                             {% if user.is_authenticated %}
                             {% if request.user.is_superuser %}
                             <a class="dropdown-item nav-link text-dark"
                             aria-current="page" href="">Product Management</a>
                                 {% endif %}
-                            <li class="nav-item">
+                            
                                 <a class="dropdown-item nav-link text-dark"
-                                    aria-current="page" href="">Sign Out</a>
-                            </li>
-                            <li class="nav-item">
+                                    aria-current="page" href="{% url 'account_logout' %}">Sign Out</a>
+                            
+                            
                                 <a class="dropdown-item nav-link text-dark"
-                                    aria-current="page" href="">My Account</a>
-                            </li>
+                                    aria-current="page" href="{% url 'profile' %}">My Account</a>
+                            
                             {% else %}
-                            <li class="nav-item">
+                            
                                 <a class="dropdown-item nav-link text-dark"
-                                    aria-current="page" href="">Sign Up</a>
-                            </li>
-                            <li class="nav-item">
+                                    aria-current="page" href="{% url 'account_signup' %}">Sign Up</a>
+                            
+                            
                                 <a class="nav-link text-dark"
-                                    aria-current="page" href="">Sign In</a>
-                            </li>
+                                    aria-current="page" href="{% url 'account_login' %}">Sign In</a>
+                            
                             {% endif %}
-                        </ul>
+                        </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
