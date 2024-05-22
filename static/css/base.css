@@ -31,6 +31,15 @@ input[name='q']::placeholder {
   color: #aab7c4;
 }
 
+
+.navbar-brand, .nav-link, .navbar-toggler-icon, .btn-outline-dark {
+  color: black;
+}
+
+.navbar-brand {
+  font-weight: 900;
+}
+
 /* ------------------------------- bootstrap toasts */
 
 .message-container {
@@ -109,20 +118,6 @@ input[name='q']::placeholder {
   width: 1.5rem;
 }
 
-.logo-font {
-  text-transform: uppercase;
-}
-
-.main-logo-link {
-  width: fit-content;
-}
-
-.shop-now-button {
-  background: black;
-  color: white;
-  min-width: 260px;
-}
-
 .btn-black {
   background: black;
   color: white;
@@ -188,7 +183,7 @@ a.category-badge > span.badge:hover {
 /* Slightly larger container on xl screens */
 @media (min-width: 1200px) {
 .container {
-  max-width: 80%;
+  max-width: 95%;
 }
 }
 

@@ -11,6 +11,7 @@
     {% block corecss %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     {% endblock %}
 
     {% block extra_css %}
@@ -30,6 +31,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+        
         <!-- Stripe -->
         <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
@@ -42,9 +44,9 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-xl navbar-light bg-light">
+        <nav class="navbar navbar-expand-xl sticky-top border-bottom">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'home' %}">
                     <img src="/docs/4.6/assets/brand/bootstrap-solid.svg" width="30" height="30"
                         class="d-inline-block align-top" alt="">
                     Sportify
@@ -53,52 +55,37 @@
                     aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-    
+
+                  
                 <div class="collapse navbar-collapse" id="navbarsExample06">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="{% url 'products' %}">All Products</a>
                         </li>
-                        <li class="nav-item dropdown">
+
+                       
+                        <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                Sportswear
+                                Categories
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item nav-link text-dark" aria-current="page"
-                                    href="{% url 'products' %}?category=sportswear-tops">Tops</a>
-                                <a class="dropdown-item nav-link text-dark" aria-current="page"
-                                    href="{% url 'products' %}?category=sportswear-bottoms">Bottoms</a>
-                                <a class="dropdown-item nav-link text-dark" aria-current="page"
-                                    href="{% url 'products' %}?category=sportswear-suits">Suits</a>
-                                <a class="nav-link text-dark" aria-current="page"
-                                    href="{% url 'products' %}?category=footwear">Footwear</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                Equipment
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item nav-link text-dark" aria-current="page"
-                                    href="{% url 'products' %}?category=protective-gear">Protective Gear</a>
-                                <a class="dropdown-item nav-link text-dark" aria-current="page"
-                                    href="{% url 'products' %}?category=game-equipment">Game Equipment</a>
-                                <a class="dropdown-item nav-link text-dark" aria-current="page"
-                                    href="{% url 'products' %}?category=training-equipment">Training Equipment</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                Special Offers
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item nav-link text-dark" aria-current="page"
-                                    href="{% url 'products' %}?category=sale">Sale</a>
-                                <a class="dropdown-item nav-link text-dark" aria-current="page"
-                                    href="{% url 'products' %}?category=new-arrivals">New Arrivals</a>
+                                <h6 class="dropdown-header">Sportswear</h6>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-tops">Tops</a>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-bottoms">Bottoms</a>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-suits">Suits</a>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=footwear">Footwear</a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">Equipment</h6>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=protective-gear">Protective Gear</a>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=game-equipment">Game Equipment</a>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=training-equipment">Training Equipment</a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">Special Offers</h6>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sale">Sale</a>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=new-arrivals">New Arrivals</a>
                             </div>
                         </li>
                     </ul>
@@ -109,7 +96,7 @@
                         </button>
                     </form>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
                                 aria-expanded="false">Profile</a>
     
@@ -137,7 +124,7 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="{% url 'view_bag' %}">
                                 <div class="text-center">
                                     <div><i class="fas fa-shopping-bag fa-lg"></i></div>
@@ -154,11 +141,6 @@
                     </ul>
                 </div>
         </nav>
-        <div id="delivery-banner" class="row text-center">
-            <div class="col bg-black text-white">
-                <h4 class="logo-font my-1">Free delivery on orders over ${{ free_delivery_threshold }}!</h4>                
-            </div>            
-        </div>
     </header>
 
     {% if messages %}
@@ -205,7 +187,11 @@
                             </p>
                         </div>
                 <div class="col-md-4 text-center mb-3 mb-md-0 logo">
-                    <a href="/" class="d-inline-block"><img src="{% static 'images/logo-sm-l.png' %}" alt="Logo"></a>
+                    <a class="navbar-brand" href="#">
+                        <img src="/docs/4.6/assets/brand/bootstrap-solid.svg" width="30" height="30"
+                            class="d-inline-block align-top" alt="">
+                        Sportify
+                    </a>
                 </div>
                 <div class="col-md-4 text-center text-md-end">
                     <p>Keep up to date with all our latest offers</p>
