@@ -17,8 +17,26 @@
                 {% endif %}
             </div>
         </div>
+        {% if request.user.is_authenticated %}
+                {% if is_in_wishlist %}
+                <form method="post" action="{% url 'remove_from_wishlist' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Remove from Wishlist</button>
+                </form>
+                {% else %}
+                <form id="wishlist-form" method="post" action="{% url 'add_to_wishlist' product.id %}">
+                    {% csrf_token %}
+                    <button id="wishlist-btn" type="submit">Add to Wishlist</button>
+                </form>
+                {% endif %}
+                {% else %}
+                <p>Please <a href="{% url 'account_login' %}">log in</a> to add this product to your wishlist.</p>
+                {% endif %}
         <div class="col-12 col-md-6 col-lg-4">
             <div class="product-details-container mb-5 mt-md-5">
+
+                
+
                 <p class="mb-0">{{ product.name }}</p>
                 <p class="lead mb-0 text-left font-weight-bold">${{ product.price }}</p>
                 {% if product.category %}
@@ -71,7 +89,7 @@
                             </select>
                         </div>
                         {% endif %}
-                        {% endif %}
+
 
                         <div class="col-12">
                             <p class="mt-3"><strong>Quantity:</strong></p>
@@ -121,5 +139,35 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var wishlistForm = document.getElementById("wishlist-form");
+        var wishlistBtn = document.getElementById("wishlist-btn");
+    
+        wishlistForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            var formData = new FormData(wishlistForm);
+    
+            fetch(wishlistForm.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": formData.get("csrfmiddlewaretoken")
+                }
+            }).then(response => {
+                if (response.ok) {
+                    if (wishlistBtn.textContent.trim() === "Add to Wishlist") {
+                        wishlistBtn.textContent = "Remove from Wishlist";
+                    } else {
+                        wishlistBtn.textContent = "Add to Wishlist";
+                    }
+                }
+            }).catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    });
+    </script>
 {% endblock %}
 

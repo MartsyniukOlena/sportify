@@ -56,7 +56,7 @@
                 <div class="col-12 col-md-6 order-md-first">
                     <p class="text-muted mt-3 text-center text-md-left">
                         {% if search_term or current_categories or current_sorting != 'None_None' %}
-                            <span class="small"><a href="{% url 'products' %}">Products Home</a> | </span>
+                            <span class="small"><a href="{% url 'products' %}">Back to Products</a> | </span>
                         {% endif %}
                         {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
                     </p>
@@ -102,6 +102,21 @@
                             </div>
                             {% endif %}
                             <small class="text-body-secondary">${{ product.price }}</small>
+                            {% if request.user.is_authenticated %}
+                            {% if is_in_wishlist %}
+                            <form method="post" action="{% url 'remove_from_wishlist' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Remove from Wishlist</button>
+                            </form>
+                            {% else %}
+                            <form id="wishlist-form" method="post" action="{% url 'add_to_wishlist' product.id %}">
+                                {% csrf_token %}
+                                <button id="wishlist-btn" type="submit">Add to Wishlist</button>
+                            </form>
+                            {% endif %}
+                            {% else %}
+                            <p>Please <a href="{% url 'account_login' %}">log in</a> to add this product to your wishlist.</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

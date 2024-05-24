@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
+from django.http import JsonResponse
 
 from .models import Product, Category
 from .forms import ProductForm
@@ -63,9 +64,13 @@ def product_detail(request, product_id):
     """ A view to show individual product details """
 
     product = get_object_or_404(Product, pk=product_id)
+    is_in_wishlist = False
+    if request.user.is_authenticated:
+        is_in_wishlist = request.user.favorite.filter(id=product_id).exists()
 
     context = {
         'product': product,
+        'is_in_wishlist': is_in_wishlist,
     }
 
     return render(request, 'products/product_detail.html', context)
@@ -137,3 +142,39 @@ def delete_product(request, product_id):
     product.delete()
     messages.success(request, 'Product deleted!')
     return redirect(reverse('products'))
+
+
+def wishlist(request):
+
+    products_in_wishlist = 0
+    if request.user.is_authenticated:
+        products_in_wishlist = request.user.favorite.count()
+        
+    if request.user.is_authenticated:
+        return render(request, 'products/wishlist.html')
+    else:
+        messages.error(request, 'You need to be logged in to add products to your wishlist.')
+
+
+def add_to_wishlist(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if request.user.is_authenticated:
+        request.user.favorite.add(product)
+        messages.success(request, 'Product added to wishlist successfully.')
+    else:
+        messages.error(request, 'You need to be logged in to add products to your wishlist.')
+    
+    return redirect('wishlist')
+
+
+def remove_from_wishlist(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if request.user.is_authenticated:
+        if request.user.favorite.filter(id=product_id).exists():
+            request.user.favorite.remove(product)
+            messages.success(request, 'Product removed from wishlist.')
+        else:
+            messages.info(request, 'Product was not in your wishlist.')
+    else:
+        messages.error(request, 'You need to be logged in to remove products from your wishlist.')
+    return redirect('wishlist')

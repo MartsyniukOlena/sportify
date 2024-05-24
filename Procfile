@@ -1,1 +1,1 @@
-web: gunicorn sportify.wsgi::application
+web: gunicorn sportify.wsgi:application
