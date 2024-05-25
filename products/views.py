@@ -160,11 +160,7 @@ def add_to_wishlist(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     if request.user.is_authenticated:
         request.user.favorite.add(product)
-        messages.success(request, 'Product added to wishlist successfully.')
-    else:
-        messages.error(request, 'You need to be logged in to add products to your wishlist.')
-    
-    return redirect('wishlist')
+    return redirect(reverse('product_detail', args=[product.id]))
 
 
 def remove_from_wishlist(request, product_id):
@@ -172,9 +168,4 @@ def remove_from_wishlist(request, product_id):
     if request.user.is_authenticated:
         if request.user.favorite.filter(id=product_id).exists():
             request.user.favorite.remove(product)
-            messages.success(request, 'Product removed from wishlist.')
-        else:
-            messages.info(request, 'Product was not in your wishlist.')
-    else:
-        messages.error(request, 'You need to be logged in to remove products from your wishlist.')
-    return redirect('wishlist')
+    return redirect(reverse('product_detail', args=[product.id]))

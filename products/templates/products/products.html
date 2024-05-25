@@ -102,21 +102,6 @@
                             </div>
                             {% endif %}
                             <small class="text-body-secondary">${{ product.price }}</small>
-                            {% if request.user.is_authenticated %}
-                            {% if is_in_wishlist %}
-                            <form method="post" action="{% url 'remove_from_wishlist' product.id %}">
-                                {% csrf_token %}
-                                <button type="submit">Remove from Wishlist</button>
-                            </form>
-                            {% else %}
-                            <form id="wishlist-form" method="post" action="{% url 'add_to_wishlist' product.id %}">
-                                {% csrf_token %}
-                                <button id="wishlist-btn" type="submit">Add to Wishlist</button>
-                            </form>
-                            {% endif %}
-                            {% else %}
-                            <p>Please <a href="{% url 'account_login' %}">log in</a> to add this product to your wishlist.</p>
-                            {% endif %}
                         </div>
                     </div>
                 </div>

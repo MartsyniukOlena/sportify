@@ -2,19 +2,13 @@
 {% load static %}
 
 {% block wishlist %}
-<h1>My Wishlist</h1>
-{% if request.user.is_authenticated %}
+    <h1 class="fw-light">Wishlist</h1>
+    {% if request.user.is_authenticated %}
 <span class="small"><a href="{% url 'products' %}">Back to Products</a> | </span>
-{{ products_in_wishlist }} Items in Wishlist
 {% endif %}
-<ul>
     {% for product in request.user.favorite.all %}
-
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
-            <p class="text-muted mt-3 text-center text-md-left">
-                
-            </p>
             <div class="row row-cols-1 row-cols-md-3 g-3">
                 <div class="col">
                     <div class="card shadow-sm">
@@ -42,18 +36,12 @@
                                 </div>
                                 {% endif %}
                                 <small class="text-body-secondary">${{ product.price }}</small>
-                                <form method="post" action="{% url 'remove_from_wishlist' product.id %}">
-                                    {% csrf_token %}
-                                    <button type="submit">Remove from Wishlist</button>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-        
+    </div> 
     {% endfor %}
-</ul>
 {% endblock %}

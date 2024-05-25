@@ -156,9 +156,9 @@
         var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
 
         $.post(url, data)
-         .done(function() {
-             location.reload();
-         });
+        .done(function() {
+            location.reload();
+        });
     })
 </script>
 {% endblock %}
