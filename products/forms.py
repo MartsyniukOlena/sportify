@@ -1,6 +1,24 @@
 from django import forms
 from .widgets import CustomClearableFileInput
-from .models import Product, Category
+from .models import Product, Category, Rating, Comment
+
+
+class CommentForm(forms.ModelForm):
+    """
+    Form class for users to comment on a product
+    """
+    class Meta:
+        """
+        Specify the django model and order of the fields
+        """
+        model = Comment
+        fields = ('body',)
+
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ['score']
 
 
 class ProductForm(forms.ModelForm):

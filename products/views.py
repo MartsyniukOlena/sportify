@@ -5,8 +5,8 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.http import JsonResponse
 
-from .models import Product, Category
-from .forms import ProductForm
+from .models import Product, Category, Rating, Comment
+from .forms import ProductForm, RatingForm, CommentForm
 
 # Create your views here.
 
@@ -68,9 +68,45 @@ def product_detail(request, product_id):
     if request.user.is_authenticated:
         is_in_wishlist = request.user.favorite.filter(id=product_id).exists()
 
+    ratings = product.rating_set.all()
+    average_rating = product.average_rating()
+    
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.product = product
+            rating.user = request.user
+            rating.save()
+            return redirect('product_detail', product_id=product.id)
+    else:
+        form = RatingForm()
+
+    comments = product.comments.all()
+    comment_count = product.comments.count()
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.product = product
+            comment.save()
+            messages.add_message(request, messages.SUCCESS,
+            'Comment submitted')
+            return redirect('product_detail', product_id=product.id)
+    else:
+        comment_form = CommentForm()
+
     context = {
         'product': product,
         'is_in_wishlist': is_in_wishlist,
+        'ratings': ratings,
+        'average_rating': average_rating,
+        'form': form,
+        'comments': comments,
+        'comment_count': comment_count,
+        'comment_form': comment_form,
     }
 
     return render(request, 'products/product_detail.html', context)

@@ -18,9 +18,12 @@
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
-           
-
+        
+        
             <div class="product-details-container mb-5 mt-md-5">
+        
+                
+        
                 {% if request.user.is_authenticated %}
                 {% if is_in_wishlist %}
                 <form method="post" action="{% url 'remove_from_wishlist' product.id %}">
@@ -45,7 +48,7 @@
                     </a>
                 </p>
                 {% endif %}
-
+                <p class="small mt-1 mb-0"><i class="fa-solid fa-star"></i> {{ average_rating }}</p>
                 <div class="d-flex justify-content-between align-items-center">
                     {% if request.user.is_superuser %}
                     <div class="btn-group ml-3">
@@ -132,7 +135,71 @@
             </div>
         </div>
     </div>
-</div>
+    
+    
+
+    <h3>Ratings:</h3>
+    <ul>
+        {% for rating in ratings %}
+        <li>
+            {{ rating.score }} stars by {{ rating.user.username }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Add Your Rating:</h3>
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="rating_submit">Submit Rating</button>
+    </form>
+    {% else %}
+    <p>You need to <a href="{% url 'account_login' %}">login</a> to add a rating.</p>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-8 card mb-4 mt-3">
+            <h3>Comments:</h3>
+            <div class="card-body">
+                <!-- Loop through each comment in comments -->
+                {% for comment in product.comments.all %}
+                <div class="p-2 comments">
+                    <p class="font-weight-bold">
+                        {{ comment.author }}
+                        <span class="font-weight-normal">
+                            {{ comment.created_on }}
+                        </span> wrote:
+                    </p>
+                    <div id="comment{{ comment.id }}">
+                        {{ comment.body | linebreaks }}
+                    </div>
+                    {% if user.is_authenticated and comment.author == user %}
+                    <button class="btn btn-delete delete-comment-btn" data-comment_id="{{ comment.id }}" data-product_id="{{ product.id }}">Delete Comment</button>
+                    <button class="btn btn-edit" data-comment_id="{{ comment.id }}" data-product_id="{{ product.id }}">Edit Comment</button>
+                    {% endif %}
+                </div>
+                <!-- End of for loop -->
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4 card mb-4 mt-3">
+            <div class="card-body">
+                {% if user.is_authenticated %}
+                <h3>Leave a comment:</h3>
+                <p>Posting as: {{ user.username }}</p>
+                <form id="commentForm" method="post" style="margin-top: 1.3em;" action="{% url 'product_detail' product.id %}">
+                    {{ comment_form | crispy }}
+                    {% csrf_token %}
+                    <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+                </form>
+                {% else %}
+                <p>Log in to leave a comment</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
 {% endblock %}
 
 {% block postloadjs %}
@@ -166,6 +233,57 @@
             });
         });
     });
+</script>
+
+<script>
+const editButtons = document.getElementsByClassName("btn-edit");
+const commentText = document.getElementById("id_body");
+const commentForm = document.getElementById("commentForm");
+const submitButton = document.getElementById("submitButton");
+
+const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
+const deleteButtons = document.getElementsByClassName("delete-comment-btn");
+const deleteConfirm = document.getElementById("deleteConfirm");
+
+/*
+ * Initializes edit functionality for the provided edit buttons.
+ * 
+ * For each button in the `editButtons` collection:
+ * - Retrieves the associated comment's ID upon click.
+ * - Fetches the content of the corresponding comment.
+ * - Populates the `commentText` input/textarea with the comment's content for editing.
+ * - Updates the submit button's text to "Update".
+ * - Sets the form's action attribute to the `comment_edit/{product_id}/{commentId}` endpoint.
+ */
+for (let button of editButtons) {
+    button.addEventListener("click", (e) => {
+        let commentId = e.target.getAttribute("data-comment_id");
+        let commentContent = document.getElementById(`comment${commentId}`).innerText.trim();
+        commentText.value = commentContent;
+        submitButton.innerText = "Update";
+        const productId = e.target.getAttribute("data-product_id");
+        commentForm.setAttribute("action", `/product/${productId}/comment/${commentId}/edit/`);
+    });
+}
+
+/*
+ * Initializes deletion functionality for the provided delete buttons.
+ * 
+ * For each button in the `deleteButtons` collection:
+ * - Retrieves the associated comment's ID upon click.
+ * - Updates the `deleteConfirm` link's href to point to the 
+ * deletion endpoint for the specific comment.
+ * - Displays a confirmation modal (`deleteModal`) to prompt 
+ * the user for confirmation before deletion.
+ */
+for (let button of deleteButtons) {
+    button.addEventListener("click", (e) => {
+        let commentId = e.target.getAttribute("data-comment_id");
+        const productId = e.target.getAttribute("data-product_id");
+        deleteConfirm.href = `/product/${productId}/comment/${commentId}/delete/`;
+        deleteModal.show();
+    });
+}
 </script>
 {% endblock %}
 
