@@ -114,7 +114,24 @@ def product_detail(request, product_id):
 
 @login_required
 def add_product(request):
-    """ Add a product to the store """
+    """
+    Add a product to the store.
+
+    This view handles the addition of a new product to the store for superuser.
+
+    **Context**
+
+    ``form``
+        An instance of :form:`ProductForm`.
+
+    **Template:**
+
+    :template:`products/add_product.html`
+
+    **Redirects to:**
+
+    :view:`product_detail`
+    """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
@@ -140,7 +157,31 @@ def add_product(request):
 
 @login_required
 def edit_product(request, product_id):
-    """ Edit a product in the store """
+    """
+    Edit a product in the store.
+
+    This view handles the editing of an existing product in the store for superuser.
+
+    **Args:**
+
+    ``product_id``
+        The ID of the product to be edited.
+
+    **Context**
+
+    ``form``
+        An instance of :form:`ProductForm`.
+    ``product``
+        The product being edited.
+
+    **Template:**
+
+    :template:`products/edit_product.html`
+
+    **Redirects to:**
+
+    :view:`product_detail`
+    """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
@@ -169,7 +210,20 @@ def edit_product(request, product_id):
 
 @login_required
 def delete_product(request, product_id):
-    """ Delete a product from the store """
+    """
+    Delete a product from the store.
+
+    This view handles the deletion of an existing product from the store for superuser.
+
+    **Args:**
+
+    ``product_id``
+        The ID of the product to be deleted.
+
+    **Redirects to:**
+
+    :view:`products`
+    """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
@@ -181,18 +235,48 @@ def delete_product(request, product_id):
 
 
 def wishlist(request):
+    """
+    Displays the wishlist page.
+
+    If the user is authenticated, calculates the number of products in the user's wishlist.
+    If the user is not authenticated, displays an error message.
+
+    **Context**
+
+    ``products_in_wishlist``
+        The count of products in the user's wishlist.
+
+    **Template:**
+
+    :template:`products/wishlist.html`
+    """
 
     products_in_wishlist = 0
     if request.user.is_authenticated:
         products_in_wishlist = request.user.favorite.count()
         
     if request.user.is_authenticated:
-        return render(request, 'products/wishlist.html')
+        return render(request, 'products/wishlist.html', {'products_in_wishlist': products_in_wishlist})
     else:
         messages.error(request, 'You need to be logged in to add products to your wishlist.')
 
 
 def add_to_wishlist(request, product_id):
+    """
+    Adds a product to the user's wishlist.
+
+    If the user is authenticated, adds the specified product to the user's wishlist.
+    If the user is not authenticated, does nothing.
+
+    **Args:**
+
+    ``product_id``
+        The ID of the product to add to the wishlist.
+
+    **Redirects to:**
+
+    :view:`product_detail`
+    """
     product = get_object_or_404(Product, pk=product_id)
     if request.user.is_authenticated:
         request.user.favorite.add(product)
@@ -200,8 +284,84 @@ def add_to_wishlist(request, product_id):
 
 
 def remove_from_wishlist(request, product_id):
+    """
+    Removes a product from the user's wishlist.
+
+    If the user is authenticated and the product is in the user's wishlist,
+    removes the specified product from the user's wishlist.
+    If the user is not authenticated, does nothing.
+
+    **Args:**
+
+    ``product_id``
+        The ID of the product to remove from the wishlist.
+
+    **Redirects to:**
+
+    :view:`product_detail`
+    """
     product = get_object_or_404(Product, pk=product_id)
     if request.user.is_authenticated:
         if request.user.favorite.filter(id=product_id).exists():
             request.user.favorite.remove(product)
+    return redirect(reverse('product_detail', args=[product.id]))
+
+
+def edit_comment(request, product_id, comment_id):
+    """
+    Display an individual comment for edit.
+    **Context**
+
+    ``product``
+        An instance of :model:`products.Product`.
+    ``comment``
+        A single comment related to the product.
+    """
+    comment = get_object_or_404(Comment, pk=comment_id)
+    product = get_object_or_404(Product, pk=product_id)
+
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST, instance=comment)
+        
+        if comment_form.is_valid() and comment.author == request.user:
+            comment = comment_form.save(commit=False)
+            comment.product = product
+            comment.approved = False
+            comment.save()
+            messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
+            return redirect(reverse('product_detail', args=[product.id]))
+        else:
+            messages.add_message(request, messages.ERROR, 'Error updating comment!')
+    
+    else:
+        comment_form = CommentForm(instance=comment)
+    
+    context = {
+        'product': product,
+        'comment': comment,
+        'comment_form': comment_form,
+    }
+    return render(request, 'products/edit_comment.html', context)
+
+
+def delete_comment(request, product_id, comment_id):
+    """
+    Delete an individual comment.
+
+    **Context**
+
+    ``product``
+        An instance of :model:`products.Product`.
+    ``comment``
+        A single comment related to the product.
+    """
+    comment = get_object_or_404(Comment, pk=comment_id)
+    product = get_object_or_404(Product, pk=product_id)
+
+    if comment.author == request.user:
+        comment.delete()
+        messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
+    else:
+        messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
+
     return redirect(reverse('product_detail', args=[product.id]))

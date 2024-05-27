@@ -18,12 +18,7 @@
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
-        
-        
             <div class="product-details-container mb-5 mt-md-5">
-        
-                
-        
                 {% if request.user.is_authenticated %}
                 {% if is_in_wishlist %}
                 <form method="post" action="{% url 'remove_from_wishlist' product.id %}">
@@ -92,7 +87,6 @@
                         </div>
                         {% endif %}
 
-
                         <div class="col-12">
                             <p class="mt-3"><strong>Quantity:</strong></p>
                             <div class="form-group w-50">
@@ -135,8 +129,6 @@
             </div>
         </div>
     </div>
-    
-    
 
     <h3>Ratings:</h3>
     <ul>
@@ -158,13 +150,26 @@
     <p>You need to <a href="{% url 'account_login' %}">login</a> to add a rating.</p>
     {% endif %}
 
+    <!-- Displaying count of comments -->
     <div class="row">
-        <div class="col-md-8 card mb-4 mt-3">
+        <div class="col-12">
+            <strong class="text-secondary">
+                <i class="far fa-comments"></i> {{ comment_count }}
+            </strong>
+        </div>
+        <div class="col-12">
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 card mb-4 mt-3 ">
             <h3>Comments:</h3>
             <div class="card-body">
-                <!-- Loop through each comment in comments -->
-                {% for comment in product.comments.all %}
-                <div class="p-2 comments">
+                <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
+                {% for comment in comments %}
+                <div
+                    class="p-2 comments{% if not comment.author == user %} faded {% endif %}">
                     <p class="font-weight-bold">
                         {{ comment.author }}
                         <span class="font-weight-normal">
@@ -176,19 +181,19 @@
                     </div>
                     {% if user.is_authenticated and comment.author == user %}
                     <button class="btn btn-delete delete-comment-btn" data-comment_id="{{ comment.id }}" data-product_id="{{ product.id }}">Delete Comment</button>
-                    <button class="btn btn-edit" data-comment_id="{{ comment.id }}" data-product_id="{{ product.id }}">Edit Comment</button>
+                    <button class="btn btn-edit" data-comment_id="{{ comment.id }}">Edit Comment</button>
                     {% endif %}
                 </div>
-                <!-- End of for loop -->
+                <!-- Our for loop ends here -->
                 {% endfor %}
             </div>
         </div>
-        <div class="col-md-4 card mb-4 mt-3">
+        <div class="col-md-4 card mb-4 mt-3 ">
             <div class="card-body">
                 {% if user.is_authenticated %}
                 <h3>Leave a comment:</h3>
                 <p>Posting as: {{ user.username }}</p>
-                <form id="commentForm" method="post" style="margin-top: 1.3em;" action="{% url 'product_detail' product.id %}">
+                <form id="commentForm" method="post" style="margin-top: 1.3em;">
                     {{ comment_form | crispy }}
                     {% csrf_token %}
                     <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
@@ -199,91 +204,92 @@
             </div>
         </div>
     </div>
+</div>
+</div>  
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this comment?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a id="deleteConfirm" class="btn btn-danger" href="#">Delete</a>
+        </div>
+      </div>
     </div>
+  </div>
 {% endblock %}
 
 {% block postloadjs %}
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var wishlistForm = document.getElementById("wishlist-form");
-        var wishlistBtn = document.getElementById("wishlist-btn");
-    
-        wishlistForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-            var formData = new FormData(wishlistForm);
-    
-            fetch(wishlistForm.action, {
-                method: "POST",
-                body: formData,
-                headers: {
-                    "X-CSRFToken": formData.get("csrfmiddlewaretoken")
-                }
-            }).then(response => {
-                if (response.ok) {
-                    if (wishlistBtn.value.trim() === "Add to Wishlist") {
-                        wishlistBtn.value = "Remove from Wishlist";
-                    } else {
-                        wishlistBtn.value = "Add to Wishlist";
-                    }
-                }
-            }).catch(error => {
-                console.error("Error:", error);
-            });
+    /*
+    * Initializes the event listeners for the edit comment buttons when the DOM content is fully loaded.
+    * Sets up the edit form with the appropriate comment content and action URL when an edit button is clicked.
+    */
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // Retrieves all elements with the class "btn-edit"
+    const editButtons = document.getElementsByClassName("btn-edit");
+    // Retrieves the textarea element for the comment body
+    const commentText = document.getElementById("id_body");
+    // Retrieves the form element for submitting the comment edit
+    const commentForm = document.getElementById("commentForm");
+    // Retrieves the submit button element for the comment form
+    const submitButton = document.getElementById("submitButton");
+
+    // Iterate over each edit button to attach the click event listener.
+    for (let button of editButtons) {
+        button.addEventListener("click", (e) => {
+            // Retrieves the comment ID from the data attribute of the clicked edit button.
+            let commentId = e.target.getAttribute("data-comment_id");
+            // Retrieves the content of the comment to be edited by its ID, constructed using the comment ID.
+            let commentContent = document.getElementById(`comment${commentId}`).innerText;
+            
+            console.log(`Editing comment ${commentId}: ${commentContent}`);
+
+            // Set the textarea value to the content of the comment to be edited.
+            commentText.value = commentContent;
+            // Change the submit button text to indicate an update action.
+            submitButton.innerText = "Update";
+            // Set the form action URL to the edit comment endpoint with the comment ID.
+            commentForm.setAttribute("action", `edit_comment/${commentId}/`);
         });
-    });
-</script>
-
-<script>
-const editButtons = document.getElementsByClassName("btn-edit");
-const commentText = document.getElementById("id_body");
-const commentForm = document.getElementById("commentForm");
-const submitButton = document.getElementById("submitButton");
-
-const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
-const deleteButtons = document.getElementsByClassName("delete-comment-btn");
-const deleteConfirm = document.getElementById("deleteConfirm");
+    }
+});
 
 /*
- * Initializes edit functionality for the provided edit buttons.
- * 
- * For each button in the `editButtons` collection:
- * - Retrieves the associated comment's ID upon click.
- * - Fetches the content of the corresponding comment.
- * - Populates the `commentText` input/textarea with the comment's content for editing.
- * - Updates the submit button's text to "Update".
- * - Sets the form's action attribute to the `comment_edit/{product_id}/{commentId}` endpoint.
- */
-for (let button of editButtons) {
-    button.addEventListener("click", (e) => {
-        let commentId = e.target.getAttribute("data-comment_id");
-        let commentContent = document.getElementById(`comment${commentId}`).innerText.trim();
-        commentText.value = commentContent;
-        submitButton.innerText = "Update";
-        const productId = e.target.getAttribute("data-product_id");
-        commentForm.setAttribute("action", `/product/${productId}/comment/${commentId}/edit/`);
-    });
-}
+* Initializes deletion functionality for the provided delete buttons.
+*/
+document.addEventListener("DOMContentLoaded", function () {
+    // Initialize the Bootstrap modal for deletion confirmation
+    const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
+    // Get all delete buttons
+    const deleteButtons = document.getElementsByClassName("delete-comment-btn");
+    // Get the confirmation link in the modal
+    const deleteConfirm = document.getElementById("deleteConfirm");
 
-/*
- * Initializes deletion functionality for the provided delete buttons.
- * 
- * For each button in the `deleteButtons` collection:
- * - Retrieves the associated comment's ID upon click.
- * - Updates the `deleteConfirm` link's href to point to the 
- * deletion endpoint for the specific comment.
- * - Displays a confirmation modal (`deleteModal`) to prompt 
- * the user for confirmation before deletion.
- */
-for (let button of deleteButtons) {
-    button.addEventListener("click", (e) => {
-        let commentId = e.target.getAttribute("data-comment_id");
-        const productId = e.target.getAttribute("data-product_id");
-        deleteConfirm.href = `/product/${productId}/comment/${commentId}/delete/`;
-        deleteModal.show();
-    });
-}
+    // Attach click event listeners to each delete button
+    for (let button of deleteButtons) {
+        button.addEventListener("click", (e) => {
+            // Get the comment ID from the button's data attribute
+            let commentId = e.target.getAttribute("data-comment_id");
+            // Get the product ID from the button's data attribute
+            let productId = e.target.getAttribute("data-product_id");
+            // Update the confirmation link href to include the comment and product ID
+            deleteConfirm.href = `/products/${productId}/delete_comment/${commentId}/`;
+            // Show the delete confirmation modal
+            deleteModal.show();
+        });
+    }
+});
 </script>
 {% endblock %}
-
