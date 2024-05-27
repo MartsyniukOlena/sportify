@@ -131,24 +131,29 @@
     </div>
 
     <h3>Ratings:</h3>
-    <ul>
-        {% for rating in ratings %}
-        <li>
-            {{ rating.score }} stars by {{ rating.user.username }}
-        </li>
-        {% endfor %}
-    </ul>
-
-    <h3>Add Your Rating:</h3>
-    {% if user.is_authenticated %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" name="rating_submit">Submit Rating</button>
-    </form>
+    <div>
+        <div>
+            {% for rating in ratings %}
+            <p>
+                {{ rating.score }} stars by {{ rating.user.username }}
+            </p>
+            {% endfor %}
+        </div>
+        
+        {% if user.is_authenticated %}
+        {% if user_rating %}
+            <p>You have already rated this product. Your rating: {{ user_rating.score }}</p>
+        {% else %}
+            <form method="POST" action="{% url 'product_detail' product.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" name="rate">Submit Rating</button>
+            </form>
+        {% endif %}
     {% else %}
-    <p>You need to <a href="{% url 'account_login' %}">login</a> to add a rating.</p>
+        <p><a href="{% url 'account_login' %}">Log in</a> to rate this product.</p>
     {% endif %}
+    </div>
 
     <!-- Displaying count of comments -->
     <div class="row">

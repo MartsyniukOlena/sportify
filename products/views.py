@@ -19,6 +19,12 @@ def all_products(request):
     sort = None
     direction = None
 
+    for product in products:
+        product.average_rating = product.average_rating()
+        product.is_in_wishlist = False
+        if request.user.is_authenticated:
+            product.is_in_wishlist = request.user.favorite.filter(id=product.id).exists()
+
     if request.GET:
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
@@ -70,14 +76,22 @@ def product_detail(request, product_id):
 
     ratings = product.rating_set.all()
     average_rating = product.average_rating()
+
+    user_rating = None
+    if request.user.is_authenticated:
+        user_rating = Rating.objects.filter(product=product, user=request.user).first()
+
     
-    if request.method == 'POST':
+    if request.method == 'POST' and 'rate' in request.POST:
         form = RatingForm(request.POST)
-        if form.is_valid():
+        if user_rating:
+            messages.error(request, 'You have already rated this product.')
+        elif form.is_valid():
             rating = form.save(commit=False)
             rating.product = product
             rating.user = request.user
             rating.save()
+            messages.success(request, 'Rating submitted!')
             return redirect('product_detail', product_id=product.id)
     else:
         form = RatingForm()
@@ -104,6 +118,7 @@ def product_detail(request, product_id):
         'ratings': ratings,
         'average_rating': average_rating,
         'form': form,
+        'user_rating': user_rating,
         'comments': comments,
         'comment_count': comment_count,
         'comment_form': comment_form,
