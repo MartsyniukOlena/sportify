@@ -74,7 +74,24 @@ footer p {
   border-color: #FFC107; 
 }
 
+/* ................................Contact Us Form */
 
+.contact-form .form-control {
+  border-radius: 5px;
+  border: 1px solid #00796B;
+}
+
+.btn-primary {
+  background-color: #00796B;
+  border-color: #00796B;
+}
+
+.btn-primary:hover {
+  background-color: #00695C;
+  border-color: #00695C;
+}
+
+/* .......................................*/
 .category-badge {
   display: inline-block;
   margin: 2px;

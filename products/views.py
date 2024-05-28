@@ -279,7 +279,8 @@ def wishlist(request):
     if request.user.is_authenticated:
         return render(request, 'products/wishlist.html', {'products_in_wishlist': products_in_wishlist})
     else:
-        messages.error(request, 'You need to be logged in to add products to your wishlist.')
+        messages.error(request, 'You need to be logged in to view your wishlist.')
+        return redirect('account_login')
 
 
 def add_to_wishlist(request, product_id):
@@ -296,12 +297,16 @@ def add_to_wishlist(request, product_id):
 
     **Redirects to:**
 
-    :view:`product_detail`
+    :view:`product_detail` or the page specified in the `next` parameter.
     """
     product = get_object_or_404(Product, pk=product_id)
     if request.user.is_authenticated:
         request.user.favorite.add(product)
-    return redirect(reverse('product_detail', args=[product.id]))
+        next_url = request.GET.get('next', reverse('product_detail', args=[product.id]))
+        return redirect(next_url)
+    else:
+        messages.error(request, 'You need to be logged in to add products to your wishlist.')
+        return redirect('account_login')
 
 
 def remove_from_wishlist(request, product_id):
@@ -319,13 +324,17 @@ def remove_from_wishlist(request, product_id):
 
     **Redirects to:**
 
-    :view:`product_detail`
+    :view:`product_detail` or the page specified in the `next` parameter.
     """
     product = get_object_or_404(Product, pk=product_id)
     if request.user.is_authenticated:
         if request.user.favorite.filter(id=product_id).exists():
             request.user.favorite.remove(product)
-    return redirect(reverse('product_detail', args=[product.id]))
+        next_url = request.GET.get('next', reverse('product_detail', args=[product.id]))
+        return redirect(next_url)
+    else:
+        messages.error(request, 'You need to be logged in to remove products from your wishlist.')
+        return redirect('account_login')
 
 
 def edit_comment(request, product_id, comment_id):

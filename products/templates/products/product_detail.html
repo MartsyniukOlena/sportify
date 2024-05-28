@@ -22,12 +22,12 @@
             <div class="product-details-container mb-5 mt-md-5">
                 {% if request.user.is_authenticated %}
                 {% if is_in_wishlist %}
-                <form method="post" action="{% url 'remove_from_wishlist' product.id %}">
+                <form method="post" action="{% url 'remove_from_wishlist' product.id %}?next={{ request.path }}">
                     {% csrf_token %}
                     <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Remove from Wishlist">
                 </form>
                 {% else %}
-                <form id="wishlist-form" method="post" action="{% url 'add_to_wishlist' product.id %}">
+                <form id="wishlist-form" method="post" action="{% url 'add_to_wishlist' product.id %}?next={{ request.path }}">
                     {% csrf_token %}
                     <input id="wishlist-btn" type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Wishlist">
                 </form>
