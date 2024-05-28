@@ -8,32 +8,31 @@
         <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light">Products</h1>
             <a class="category-badge text-decoration-none" href="{% url 'products' %}?category=sportswear-tops">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">Tops</span>
+                <span class="p-2 mt-2 badge rounded-0 border border-dark">Tops</span>
             </a>
             <a class="category-badge text-decoration-none" href="{% url 'products' %}?category=sportswear-bottoms">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">Bottoms</span>
+                <span class="p-2 mt-2 badge rounded-0 border border-dark">Bottoms</span>
             </a>
             <a class="category-badge text-decoration-none" href="{% url 'products' %}?category=sportswear-suits">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">Suits</span>
+                <span class="p-2 mt-2 badge rounded-0 border border-dark">Suits</span>
             </a>
             <a class="category-badge text-decoration-none" href="{% url 'products' %}?category=footwear">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">Footwear</span>
+                <span class="p-2 mt-2 badge rounded-0 border border-dark">Footwear</span>
             </a>
             <a class="category-badge text-decoration-none" href="{% url 'products' %}?category=protective-gear">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">Protective Gear</span>
+                <span class="p-2 mt-2 badge rounded-0 border border-dark">Protective Gear</span>
             </a>
             <a class="category-badge text-decoration-none" href="{% url 'products' %}?category=game-equipment">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">Game Equipment</span>
+                <span class="p-2 mt-2 badge rounded-0 border border-dark">Game Equipment</span>
             </a>
             <a class="category-badge text-decoration-none" href="{% url 'products' %}?category=training-equipment">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">Training
-                    Equipment</span>
+                <span class="p-2 mt-2 badge rounded-0 border border-dark">Training Equipment</span>
             </a>
             <a class="category-badge text-decoration-none" href="{% url 'products' %}?category=sale">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">Sale</span>
+                <span class="p-2 mt-2 badge rounded-0 border border-dark">Sale</span>
             </a>
             <a class="category-badge text-decoration-none" href="{% url 'products' %}?category=new-arrivals">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">New Arrivals</span>
+                <span class="p-2 mt-2 badge rounded-0 border border-dark">New Arrivals</span>
             </a>
         </div>
     </div>
@@ -50,13 +49,15 @@
                             <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
                             <option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>Category (A-Z)</option>
                             <option value="category_desc" {% if current_sorting == 'category_desc' %}selected{% endif %}>Category (Z-A)</option>
+                            <option value="rating_asc" {% if current_sorting == 'rating_asc' %}selected{% endif %}>Rating (low to high)</option>
+                            <option value="rating_desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>Rating (high to low)</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-first">
                     <p class="text-muted mt-3 text-center text-md-left">
                         {% if search_term or current_categories or current_sorting != 'None_None' %}
-                            <span class="small"><a href="{% url 'products' %}">Back to Products</a> | </span>
+                            <span class="small"><a href="{% url 'products' %}" class="text-decoration-none">Back to Products</a> | </span>
                         {% endif %}
                         {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
                     </p>
@@ -64,28 +65,32 @@
             </div>
         </div>
     </div>
-    <div class="btt-button shadow-sm rounded-0 border border-black">
+    <div class="btt-button shadow-sm rounded-0 border border-primary">
         <a class="btt-link d-flex h-100">
-            <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
+            <i class="fas fa-arrow-up mx-auto my-auto"></i>
         </a>
     </div>
 </section>
 
 <section>
-<div class="album py-5 bg-body-tertiary">
+<div class="album py-5">
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 g-3">
             {% for product in products %}
             <div class="col">
                 <div class="card shadow-sm">
                     {% if product.image %}
+                    <a href="{% url 'product_detail' product.id %}">
                         <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </a>
                     {% else %}
+                    <a href="{% url 'product_detail' product.id %}">
                         <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                    </a>
                     {% endif %}
                     <div class="card-body">
                         <h3 class="card-text">
-                            <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-dark">{{ product.name }}</a>
                         </h3>
                         {% if product.category %}
                         <p class="small mt-1 mb-0">
@@ -95,28 +100,28 @@
                         </p>
                         {% endif %}
                         <!-- Average Rating -->
-                        <p class="small mt-1 mb-0"><i class="fa-solid fa-star"></i> {{ product.average_rating }}</p>
+                        <p class="small mt-1 mb-0 text-warning"><i class="fa-solid fa-star"></i> {{ product.average_rating }}</p>
                         <!-- Add/Remove from Wishlist -->
                         {% if request.user.is_authenticated %}
                         {% if product.is_in_wishlist %}
                         <form method="post" action="{% url 'remove_from_wishlist' product.id %}">
                             {% csrf_token %}
-                            <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Remove from Wishlist">
+                            <input type="submit" class="btn btn-danger rounded-0 text-uppercase mt-5" value="Remove from Wishlist">
                         </form>
                         {% else %}
                         <form method="post" action="{% url 'add_to_wishlist' product.id %}">
                             {% csrf_token %}
-                            <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Wishlist">
+                            <input type="submit" class="btn btn-primary rounded-0 text-uppercase mt-5" value="Add to Wishlist">
                         </form>
                         {% endif %}
                         {% else %}
-                        <p>Please <a href="{% url 'account_login' %}">log in</a> to add this product to your wishlist.</p>
+                        <p><a href="{% url 'account_login' %}" class="text-primary">Log in</a> to add this product to your wishlist.</p>
                         {% endif %}
                         <!-- Average Rating -->
                         <div class="d-flex justify-content-between align-items-center">
                             {% if request.user.is_superuser %}
-                            <div class="btn-group ml-3">
-                                <a href="{% url 'edit_product' product_id=product.id %}">Edit</a>
+                            <div class="btn-group">
+                                <a href="{% url 'edit_product' product_id=product.id %}" class="text-info">Edit</a>
                                 <a class="text-danger" href="{% url 'delete_product' product_id=product.id %}">Delete</a>
                             </div>
                             {% endif %}

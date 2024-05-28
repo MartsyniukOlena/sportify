@@ -6,12 +6,6 @@ body {
     font-family: "Raleway", sans-serif;
 }
 
-
-a.category-badge > span.badge:hover {
-    background: #212529 !important;
-    color: #fff !important;
-}
-
 .btt-button {
   position: fixed;
   bottom: 20px;
@@ -58,11 +52,11 @@ footer p {
 
 .dropdown-header, .dropdown-divider {
   border-color: #004D40;
-  color: #F5F5F5;
+  color: #fff;
 }
 
 .dropdown-item {
-  color: #F5F5F5;
+  color: #fff;
 }
 
 .dropdown-item:hover {
@@ -70,8 +64,8 @@ footer p {
 }
 
 .btn-outline-dark {
-  color: #F5F5F5;
-  border-color: #F5F5F5; 
+  color: #fff;
+  border-color: #fff; 
 }
 
 .btn-outline-dark:hover {
@@ -80,6 +74,49 @@ footer p {
   border-color: #FFC107; 
 }
 
+
+.category-badge {
+  display: inline-block;
+  margin: 2px;
+}
+
+.category-badge .badge {
+  background-color: #00796B;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.category-badge .badge:hover {
+  color: #00796B;
+  background-color: #FFC107;
+  border-color: #FFC107; 
+}
+
+h1 {
+  color: #FFC107;
+  text-transform: uppercase;
+}
+
+/* .................................... Star Rating */
+
+.star-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.star {
+  font-size: 30px;
+  color: #ddd;
+  cursor: pointer;
+}
+
+.star.selected,
+.star.hover {
+  color: #f5b301;
+}
 
 /* .................................... Carousel */
 #myCarousel {
@@ -244,11 +281,6 @@ footer p {
 
 .bg-black {
   background: #000 !important;
-}
-
-a.category-badge > span.badge:hover {
-  background: #212529 !important;
-  color: #fff !important;
 }
 
 .btt-button {

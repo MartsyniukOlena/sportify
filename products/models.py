@@ -35,6 +35,9 @@ class Product(models.Model):
     image = models.ImageField(null=True, blank=True)
     wishlist = models.ManyToManyField(User, related_name='favorite', blank=True)
 
+    def __str__(self):
+        return self.name
+
     def average_rating(self):
         ratings = self.rating_set.all()
         if ratings.exists():
@@ -45,9 +48,26 @@ class Rating(models.Model):
     """
     Stores a single rating entry, related to :model:`auth.User` and :model:`Product`.
     """
+    ONE_STAR = 1
+    TWO_STARS = 2
+    THREE_STARS = 3
+    FOUR_STARS = 4
+    FIVE_STARS = 5
+
+    SCORE_CHOICES = [
+        (ONE_STAR, '1 Star'),
+        (TWO_STARS, '2 Stars'),
+        (THREE_STARS, '3 Stars'),
+        (FOUR_STARS, '4 Stars'),
+        (FIVE_STARS, '5 Stars'),
+    ]
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    score = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    score = models.IntegerField(choices=SCORE_CHOICES)
+
+    def __str__(self):
+        return f'Rating {self.score} for {self.product.name} by {self.user.username}'
 
 
 class Comment(models.Model):

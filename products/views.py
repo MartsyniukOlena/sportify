@@ -54,6 +54,12 @@ def all_products(request):
             queries = Q(name__icontains=query) | Q(description__icontains=query)
             products = products.filter(queries)
 
+        if sort == 'rating':
+            if direction == 'asc':
+                products = sorted(products, key=lambda p: p.average_rating())
+            elif direction == 'desc':
+                products = sorted(products, key=lambda p: p.average_rating(), reverse=True)
+
     current_sorting = f'{sort}_{direction}'
 
     context = {

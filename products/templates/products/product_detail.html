@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+<!-- Product Detail -->
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
@@ -32,7 +33,7 @@
                 </form>
                 {% endif %}
                 {% else %}
-                <p>Please <a href="{% url 'account_login' %}">log in</a> to add this product to your wishlist.</p>
+                <p><a href="{% url 'account_login' %}">Log in</a> to add this product to your wishlist.</p>
                 {% endif %}
                 <p class="mb-0">{{ product.name }}</p>
                 <p class="lead mb-0 text-left font-weight-bold">${{ product.price }}</p>
@@ -130,32 +131,42 @@
         </div>
     </div>
 
+    <!-- Ratings -->
+    <hr>
     <h3>Ratings:</h3>
+    <p><i class="fa-solid fa-star-half-stroke"></i> {{ ratings|length }} rating(s)</p>
     <div>
         <div>
             {% for rating in ratings %}
-            <p>
-                {{ rating.score }} stars by {{ rating.user.username }}
-            </p>
+                <p>
+                    {{ rating.score }} stars by {{ rating.user.username }}
+                </p>
             {% endfor %}
         </div>
-        
+
         {% if user.is_authenticated %}
-        {% if user_rating %}
-            <p>You have already rated this product. Your rating: {{ user_rating.score }}</p>
+            {% if user_rating %}
+                <p>You have already rated this product. Your rating: {{ user_rating.score }}</p>
+            {% else %}
+                <form method="POST" action="{% url 'product_detail' product.id %}">
+                    {% csrf_token %}
+                    <div class="star-rating" title="You can rate this product only once.">
+                        <span class="star" data-value="1">&#9733;</span>
+                        <span class="star" data-value="2">&#9733;</span>
+                        <span class="star" data-value="3">&#9733;</span>
+                        <span class="star" data-value="4">&#9733;</span>
+                        <span class="star" data-value="5">&#9733;</span>
+                    </div>
+                    <input type="hidden" name="score" id="rating-score" value="0">
+                    <button type="submit" name="rate">Submit Rating</button>
+                </form>
+            {% endif %}
         {% else %}
-            <form method="POST" action="{% url 'product_detail' product.id %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" name="rate">Submit Rating</button>
-            </form>
+            <p><a href="{% url 'account_login' %}">Log in</a> to rate this product.</p>
         {% endif %}
-    {% else %}
-        <p><a href="{% url 'account_login' %}">Log in</a> to rate this product.</p>
-    {% endif %}
     </div>
 
-    <!-- Displaying count of comments -->
+    <!-- Comments -->
     <div class="row">
         <div class="col-12">
             <strong class="text-secondary">
@@ -163,7 +174,6 @@
             </strong>
         </div>
         <div class="col-12">
-            <hr>
         </div>
     </div>
 
@@ -204,7 +214,7 @@
                     <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
                 </form>
                 {% else %}
-                <p>Log in to leave a comment</p>
+                <p><a href="{% url 'account_login' %}">Log in</a> to leave a comment</p>
                 {% endif %}
             </div>
         </div>
@@ -297,4 +307,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const stars = document.querySelectorAll('.star');
+      const ratingScore = document.getElementById('rating-score');
+      
+      stars.forEach(star => {
+        star.addEventListener('click', function() {
+          const value = this.getAttribute('data-value');
+          ratingScore.value = value;
+          stars.forEach(s => s.classList.remove('selected'));
+          for (let i = 0; i < value; i++) {
+            stars[i].classList.add('selected');
+          }
+        });
+  
+        star.addEventListener('mouseover', function() {
+          const value = this.getAttribute('data-value');
+          stars.forEach(s => s.classList.remove('hover'));
+          for (let i = 0; i < value; i++) {
+            stars[i].classList.add('hover');
+          }
+        });
+  
+        star.addEventListener('mouseout', function() {
+          stars.forEach(s => s.classList.remove('hover'));
+        });
+      });
+    });
+  </script>
 {% endblock %}
