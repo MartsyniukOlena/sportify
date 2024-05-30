@@ -1,18 +1,32 @@
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    font-family: "Raleway", sans-serif;
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+ 
+/* ................................Back to Top Button */
 .btt-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  width: 50px;
+  height: 50px;
   background-color: white;
+  color: black;
+  border-radius: 50%;
+  border: 1px solid black;
   padding: 10px;
   cursor: pointer;
+}
+
+.btt-button:hover {
+    background-color: #ffcc00;
+    border: none;
 }
 
 .btt-link,
@@ -25,54 +39,132 @@ input[name='q']::placeholder {
   color: #A2ACBD;
 }
 
+/* ................................Header */
+.header {
+  background-color: black;
+  color: #ffffff;
+  padding: 10px 0;
+}
+
+.navbar {
+  background-color: black;
+}
+
 .navbar-brand {
-  font-weight: 900;
+  color: #ffcc00;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-header, footer {
-  background-color: #00796B;
+.navbar-brand:hover {
+  color: white;
 }
 
-footer p {
-  color: #F5F5F5;
+.navbar-brand img {
+  margin-right: 10px;
 }
 
-.navbar-brand, .nav-link, .dropdown-item, .navbar-toggler {
-  color: #F5F5F5;
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, .1);
 }
 
-.navbar-brand:hover, .nav-link:hover, .navbar-toggler:hover, .dropdown-item:hover {
-  color: #FFC107;
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%2877, 77, 77, 0.7%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+
+.navbar-nav .nav-link {
+  color: #ffffff;
+  margin: 0 10px;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffcc00;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+  color: #ffcc00;
+}
+
+.navbar-nav .nav-item.active .nav-link:hover {
+    background-color: #ffcc00;
+    border-radius: 1%;
+    color: #000;
 }
 
 .dropdown-menu {
-  background-color: #00796B;
-  border: none;
+  background-color: #ffffff;
+  border-radius: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.dropdown-header, .dropdown-divider {
-  border-color: #004D40;
-  color: #fff;
+.dropdown-menu .dropdown-item {
+  color: #343a40;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.dropdown-item {
-  color: #fff;
+.dropdown-menu .dropdown-item:hover {
+  background-color: #ffcc00;
+  color: #343a40;
 }
 
-.dropdown-item:hover {
-  background-color: #004D40;
+.form-control {
+  border-radius: 0;
+  border: 1px solid #ced4da;
 }
 
 .btn-outline-dark {
-  color: #fff;
-  border-color: #fff; 
+  color: #ffffff;
+  border-color: #ffffff;
+  border-radius: 1%;
 }
 
 .btn-outline-dark:hover {
-  color: #00796B;
-  background-color: #FFC107;
-  border-color: #FFC107; 
+  color: #343a40;
+  background-color: #ffcc00;
+  border-color: #ffcc00;
 }
+
+/* ................................Footer */
+.footer {
+  background-color: black;
+  color: #ffffff;
+}
+
+.footer .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.footer .col-md-4.text-center .navbar-brand {
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.footer a:hover,
+.footer a:focus {
+  color: #ffcc00;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 15px;
+  transition: color 0.3s;
+}
+
 
 /* ................................Contact Us Form */
 
@@ -87,33 +179,132 @@ footer p {
 }
 
 .btn-primary:hover {
-  background-color: #00695C;
-  border-color: #00695C;
+  color: #343a40;
+  background-color: #ffcc00;
+  border-color: #ffcc00;
 }
 
-/* .......................................*/
-.category-badge {
-  display: inline-block;
-  margin: 2px;
+/* .......................................Hero Section */
+.products-section {
+  background: url('/media/tennis-racket.jpg') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  color: white;
+  padding: 2rem 0;
 }
 
-.category-badge .badge {
-  background-color: #00796B;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: background-color 0.3s, color 0.3s;
+.products-section .container,
+.products-section .row,
+.products-section .col-lg-6 {
+  position: relative;
+  z-index: 2;
 }
 
-.category-badge .badge:hover {
-  color: #00796B;
-  background-color: #FFC107;
-  border-color: #FFC107; 
-}
-
-h1 {
-  color: #FFC107;
+.products-section h2 {
+  color: #ffcc00;
+  font-size: 2.0rem;
+  margin-bottom: 1rem;
   text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  padding: 0.3rem 0.3rem;
+}
+
+.category-badge {
+  margin: 10px 5px;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.category-badge span {
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s;
+  color: #ffcc00;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.category-badge span:hover {
+  background-color: #ffcc00;
+  color: black;
+  border-color: black;
+}
+
+.product-count p {
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.product-count a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.product-count a:hover {
+  text-decoration: underline;
+}
+
+
+/* .................................... All Products Cards */
+.album {
+  background-color: white;
+  padding: 1rem 0;
+}
+
+.card {
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.card-text a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.card-text a:hover {
+  color: #ffcc00;
+}
+
+.small {
+  color: #343a40 !important;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.rating i {
+  color: #ffcc00;
+}
+
+small {
+  color: #343a40 !important;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.btn-group a {
+  margin-right: 0.5rem;
 }
 
 /* .................................... Star Rating */
@@ -126,7 +317,7 @@ h1 {
 
 .star {
   font-size: 30px;
-  color: #ddd;
+  color: #2e2d2d;
   cursor: pointer;
 }
 
@@ -161,17 +352,17 @@ h1 {
   border: none;
 }
 
-
 .carousel-caption {
   background: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 10px;
 }
-.carousel-caption h1, .carousel-caption p {
-  color: #fff;
+.carousel-caption h1 {
+  color: #f5b301;
 }
 
 .carousel-caption p {
+  color: #fff;
   font-size: 1.5em;
 }
 
@@ -179,6 +370,12 @@ h1 {
   font-size: 900;
   background-color: #00796B;
   color: #fff;
+}
+
+.carousel-caption .btn:hover {
+  color: #343a40;
+  background-color: #ffcc00;
+  border-color: #ffcc00;
 }
 
 
@@ -299,21 +496,6 @@ h1 {
 .bg-black {
   background: #000 !important;
 }
-
-.btt-button {
-  height: 42px;
-  width: 42px;
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-}
-
-.btt-link,
-.update-link,
-.remove-item {
-  cursor: pointer;
-}
-
 
 /* -------------------------------- Media Queries */
 

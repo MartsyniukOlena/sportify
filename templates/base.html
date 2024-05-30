@@ -46,43 +46,43 @@
         <nav class="navbar navbar-expand-xl sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'home' %}">
-                    <img src="/docs/4.6/assets/brand/bootstrap-solid.svg" width="30" height="30"
-                        class="d-inline-block align-top" alt="">
-                    Sportify
-                </a>
+                    <img src="" width="30" height="30" class="d-inline-block align-top" alt="Sportify Logo">Sportify</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06"
                     aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                  
                 <div class="collapse navbar-collapse" id="navbarsExample06">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'products' %}">All Products</a>
-                        </li>
-
-                       
                         <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                Categories
+                            <a class="nav-link dropdown-toggle" href="{% url 'products' %}" data-toggle="dropdown" aria-expanded="false">
+                                All Products
                             </a>
                             <div class="dropdown-menu">
-                                <h6 class="dropdown-header">Sportswear</h6>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}">All Products</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{% url 'products' %}?sort=price&direction=asc" class="dropdown-item" aria-current="page">By Price</a>
+                                <a href="{% url 'products' %}?sort=rating&direction=desc" class="dropdown-item" aria-current="page">By Rating</a>
+                                <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item" aria-current="page">By Category</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-tops,sportswear-bottoms,sportswear-suits,footwear">All Sportswear</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-tops">Tops</a>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-bottoms">Bottoms</a>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-suits">Suits</a>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=footwear">Footwear</a>
                                 <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Equipment</h6>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=protective-gear,game-equipment,training-equipment">All Equipment</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=protective-gear">Protective Gear</a>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=game-equipment">Game Equipment</a>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=training-equipment">Training Equipment</a>
                                 <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Special Offers</h6>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sale,new-arrivals">Special Offers</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sale">Sale</a>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=new-arrivals">New Arrivals</a>
                             </div>
@@ -105,26 +105,25 @@
                             <div class="dropdown-menu">
                                 {% if user.is_authenticated %}
                                 {% if request.user.is_superuser %}
-                                <a class="dropdown-item nav-link" aria-current="page"
+                                <a class="dropdown-item" aria-current="page"
                                     href="{% url 'add_product' %}">Add Product</a>
                                 {% endif %}
-                                <a class="dropdown-item nav-link" aria-current="page"
+                                <a class="dropdown-item" aria-current="page"
                                     href="{% url 'account_logout' %}">Sign Out</a>
-                                <a class="dropdown-item nav-link" aria-current="page"
+                                <a class="dropdown-item" aria-current="page"
                                     href="{% url 'profile' %}">My Account</a>
-                                <a class="dropdown-item nav-link" aria-current="page"
+                                <a class="dropdown-item" aria-current="page"
                                     href="{% url 'wishlist' %}">Wishlist</a>    
                                 {% else %}
-                                <a class="dropdown-item nav-link" aria-current="page"
+                                <a class="dropdown-item" aria-current="page"
                                     href="{% url 'account_signup' %}">Sign Up</a>
-                                <a class="nav-link text-dark" aria-current="page" href="{% url 'account_login' %}">Sign
-                                    In</a>
+                                <a class="nav-link text-dark" aria-current="page" href="{% url 'account_login' %}">Sign In</a>
     
                                 {% endif %}
                             </div>
                         </li>
                     </ul>
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 shopping-bag">
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'view_bag' %}">
                                 <div class="text-center">
@@ -178,7 +177,7 @@
     <footer class="footer mt-auto py-3">
         <div class="container">
             <div class="row align-items-center justify-content-between">
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-4 text-center col-lg-4">
                             <p class="copyright">
                                 Copyright ©
                                 <script>
