@@ -42,6 +42,7 @@
 </head>
 
 <body>
+    <main>
     <header>
         <nav class="navbar navbar-expand-xl sticky-top">
             <div class="container">
@@ -117,7 +118,7 @@
                                 {% else %}
                                 <a class="dropdown-item" aria-current="page"
                                     href="{% url 'account_signup' %}">Sign Up</a>
-                                <a class="nav-link text-dark" aria-current="page" href="{% url 'account_login' %}">Sign In</a>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'account_login' %}">Sign In</a>
     
                                 {% endif %}
                             </div>
@@ -173,8 +174,8 @@
 
     {% block wishlist %}
     {% endblock %}
-
-    <footer class="footer mt-auto py-3">
+</main>
+    <footer class="footer">
         <div class="container">
             <div class="row align-items-center justify-content-between">
                         <div class="col-md-4 text-center col-lg-4">
@@ -196,7 +197,7 @@
                         Sportify
                     </a>
                 </div>
-                <div class="col-md-4 text-center text-md-end">
+                <div class="col-md-4 text-center col-lg-4">
                     <p>Keep up to date with all our latest offers</p>
                     <a href="#" target="_blank"><i class="fab fa-facebook-square"></i> Follow us on Facebook!</a>
                 </div>

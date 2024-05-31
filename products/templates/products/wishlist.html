@@ -2,26 +2,35 @@
 {% load static %}
 
 {% block wishlist %}
-    <h1 class="fw-light">Wishlist</h1>
-    {% if request.user.is_authenticated %}
-    <span class="small"><a href="{% url 'products' %}">Back to Products</a> | </span>
-    <p>You have {{ products_in_wishlist }} product(s) in your wishlist.</p>
-    {% endif %}
-    {% for product in request.user.favorite.all %}
-    <div class="album py-5 bg-body-tertiary">
+<div class="page-container">
+    <div class="container">
+        <div class="col-12 col-md-6 order-md-first product-count">
+            <p class="mt-3 text-center text-md-left">
+                {% if request.user.is_authenticated %}
+                <span class="small"><a href="{% url 'products' %}">Back to Products</a> | </span>
+                <span>You have {{ products_in_wishlist }} product(s) in your wishlist.</span>
+                {% endif %}
+            </p>
+        </div>
+        <div class="album">
         <div class="container">
-            <div class="row row-cols-1 row-cols-md-3 g-3">
-                <div class="col">
-                    <div class="card shadow-sm">
+            <div class="row">
+                {% for product in request.user.favorite.all %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
                         {% if product.image %}
-                            <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <a href="{% url 'product_detail' product.id %}">
+                            <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </a>
                         {% else %}
-                            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                        <a href="{% url 'product_detail' product.id %}">
+                            <img class="card-img-top" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                        </a>
                         {% endif %}
-                        <div class="card-body">
-                            <h3 class="card-text">
-                                <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
-                            </h3>
+                        <div class="card-body d-flex flex-column">
+                            <h4 class="card-text">
+                                <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">{{ product.name }}</a>
+                            </h4>
                             {% if product.category %}
                             <p class="small mt-1 mb-0">
                                 <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
@@ -29,10 +38,34 @@
                                 </a>
                             </p>
                             {% endif %}
-                            <div class="d-flex justify-content-between align-items-center">
+                            <!-- Average Rating -->
+                            <p class="rating mt-1 mb-0 text-warning"><i class="fa-solid fa-star"></i> {{ product.average_rating }}</p>
+                            <!-- Add/Remove from Wishlist -->
+                            {% if request.user.is_authenticated %}
+                            <div class="mt-auto">
+                                {% if product.is_in_wishlist %}
+                                <form method="post" action="{% url 'remove_from_wishlist' product.id %}?next={{ request.path }}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link p-0 m-0" style="color: red;" title="Remove from Wishlist">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </form>
+                                {% else %}
+                                <form method="post" action="{% url 'add_to_wishlist' product.id %}?next={{ request.path }}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link p-0 m-0" style="color: red;" title="Add to Wishlist">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            {% else %}
+                            <p><a href="{% url 'account_login' %}" class="text-primary">Log in</a> to add this product to your wishlist.</p>
+                            {% endif %}
+                            <div class="d-flex justify-content-between align-items-center mt-3">
                                 {% if request.user.is_superuser %}
-                                <div class="btn-group ml-3">
-                                    <a href="{% url 'edit_product' product_id=product.id %}">Edit</a>
+                                <div class="btn-group">
+                                    <a href="{% url 'edit_product' product_id=product.id %}" class="text-info">Edit</a>
                                     <a class="text-danger" href="{% url 'delete_product' product_id=product.id %}">Delete</a>
                                 </div>
                                 {% endif %}
@@ -41,8 +74,9 @@
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
-    </div> 
-    {% endfor %}
+    </div>
+</div> 
 {% endblock %}

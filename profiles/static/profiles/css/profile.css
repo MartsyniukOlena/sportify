@@ -19,3 +19,27 @@
 #id_default_country option:first-child {
     color: #aab7c4;
 }
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.products-section {
+    background: url('/media/tennis-racket.jpg') no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    color: white;
+    padding: 2rem 0;
+}
+
+.profile {
+    border-radius: 3px;
+    border: 1px solid black;
+    margin-top: 15px;
+}

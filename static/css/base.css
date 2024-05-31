@@ -1,12 +1,11 @@
-html, body {
-  height: 100%;
-  margin: 0;
+main {
+  flex: 1;
 }
 
 .page-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
 }
  
 /* ................................Back to Top Button */
@@ -132,15 +131,15 @@ input[name='q']::placeholder {
 .footer {
   background-color: black;
   color: #ffffff;
+  width: 100%;
+  padding: 20px 0;
 }
 
-.footer .row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-}
 
+.footer .container {
+  max-width: 100% !important;
+  padding: 0 20px;
+}
 
 .footer .col-md-4.text-center .navbar-brand {
   font-size: 1.5rem;
@@ -177,7 +176,6 @@ input[name='q']::placeholder {
   border-radius: 3px;
   border: 1px solid black;
   padding: 15px;
-  border-radius: 3px;
 }
 
 .contact-details {
@@ -223,26 +221,6 @@ input[name='q']::placeholder {
   padding: 0.3rem 0.3rem;
 }
 
-.category-badge {
-  margin: 10px 5px;
-  font-size: 1rem;
-  transition: all 0.3s;
-}
-
-.category-badge span {
-  padding: 5px 10px;
-  border-radius: 3px;
-  transition: all 0.3s;
-  color: #ffcc00;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.category-badge span:hover {
-  background-color: #ffcc00;
-  color: black;
-  border-color: black;
-}
-
 .product-count p {
   color: black;
   font-size: 16px;
@@ -256,6 +234,22 @@ input[name='q']::placeholder {
 
 .product-count a:hover {
   text-decoration: underline;
+}
+
+/*...............................................Add Product form */
+
+.add-product-form {
+  display: flex;
+  justify-content: center;
+  margin-top: -100px;
+  margin-bottom: 5px;
+}
+
+.add-product-form .col-12 {
+  background: white;
+  padding: 2rem;
+  border-radius: 3px;
+  border: 1px solid black;
 }
 
 
@@ -275,7 +269,7 @@ input[name='q']::placeholder {
 
 .card-img-top {
   width: 100%;
-  height: 300px;
+  height: 500px;
   object-fit: cover;
   object-position: center;
 }
@@ -345,18 +339,20 @@ small {
 
 .keep-shopping-btn:hover {
   background-color: #f5b301;
-  color: black;
+  color: white;
 }
 
-.add-btn {
-  background-color: #f5b301;
-  color: black;
-  border: 2px solid black;
-}
-
-.add-btn:hover {
+.add-btn, .btn-checkout {
   background-color: #00796B;
+  border: 2px solid black;
+  color: white;
+}
+
+.add-btn:hover,
+.btn-checkout:hover {
+  background-color: #f5b301;
   border-color: black;
+  color: white;
 }
 
 .btn-delete {
@@ -382,13 +378,15 @@ small {
 }
 
 .btn-rate, .btn-submit {
-  background-color: #007bff;
+  background-color: #00796B !important;
   color: #fff;
+  border: none !important;
 }
 
 .btn-rate:hover, .btn-submit:hover {
-  background-color: #034A75;
+  background-color: #f5b301 !important;
   color: #fff;
+  border: none !important;
 }
 
 /* .................................... Carousel */
@@ -575,7 +573,7 @@ small {
 
 .allauth-form-inner-content p {
   margin-top: 1.5rem; /* mt-4 */
-  color: #6c757d; /* text-secondary */
+  color: #343a40; /* text-secondary */
 }
 
 .allauth-form-inner-content input {
@@ -616,7 +614,7 @@ display: inline-block;
 
 .allauth-form-inner-content button:hover,
 .allauth-form-inner-content input[type='submit']:hover {	
-color: #fff;
+  color: #fff;
   background-color: #222;
   border-color: #222;
 }
@@ -652,4 +650,3 @@ color: #17a2b8; /* text-info */
   border-color: #dc3545;
   border-radius: 3;
 }
-

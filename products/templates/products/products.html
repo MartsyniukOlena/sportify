@@ -3,29 +3,8 @@
 
 {% block content %}
 <div class="page-container">
-
-<section class="products-section py-5 text-center">
     <div class="container">
-        <div class="row">
-            <div class="product-container col-10 offset-1">
-                <div class="col text-left">
-                    <h2>Products</h2>
-                    <div class="categories-container mt-3">
-                        {% for c in current_categories %}
-                        <a class="category-badge text-decoration-none"
-                            href="{% url 'products' %}?category={{ c.name }}">
-                            <span class="p-2 mt-2">{{ c.friendly_name }}</span>
-                        </a>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-</section>
-
-<section>
-    <section class="text-center">
         <div class="container">
             <div class="row">
                 <div class="product-container col-10 offset-1">
@@ -51,16 +30,17 @@
                                     <span><a href="{% url 'products' %}">Back to Products</a> | </span>
                                 {% endif %}
                                 {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+                                {% for c in current_categories %}
+                    <a class="category-badge text-decoration-none" href="{% url 'products' %}?category={{ c.name }}">
+                        <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">Category: {{ c.friendly_name }}</span>
+                    </a>
+                {% endfor %}
                             </p>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
-
-</section>
-
-<section>
     <div class="album">
         <div class="container">
             <div class="row">
@@ -127,7 +107,7 @@
             </div>
         </div>
     </div>
-</section>
+</div>
     <!-- Back-to-top button -->
 <div class="btt-button shadow-sm" id="backToTopButton">
     <a class="btt-link d-flex h-100">
@@ -135,6 +115,7 @@
     </a>
 </div>
 </div>
+
 {% endblock %}
 
 

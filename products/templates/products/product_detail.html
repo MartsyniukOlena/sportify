@@ -3,7 +3,7 @@
 
 {% block content %}
 <!-- Product Detail -->
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
             <div class="image-container my-5">
@@ -29,7 +29,8 @@
                     </button>
                 </form>
                 {% else %}
-                <form id="wishlist-form" method="post" action="{% url 'add_to_wishlist' product.id %}?next={{ request.path }}">
+                <form id="wishlist-form" method="post"
+                    action="{% url 'add_to_wishlist' product.id %}?next={{ request.path }}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-link p-0 m-0" style="color: red;" title="Add to Wishlist">
                         <i class="fa-regular fa-heart"></i>
@@ -52,7 +53,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     {% if request.user.is_superuser %}
                     <div class="btn-group">
-                        <a href="{% url 'edit_product' product_id=product.id %}">Edit</a>
+                        <a class="text-info" href="{% url 'edit_product' product_id=product.id %}">Edit</a>
                         <a class="text-danger" href="{% url 'delete_product' product_id=product.id %}">Delete</a>
                     </div>
                     {% endif %}
@@ -139,82 +140,77 @@
     <div>
 
         {% if user.is_authenticated %}
-            {% if user_rating %}
-                <p>You have already rated this product. Your rating: {{ user_rating.score }}</p>
-            {% else %}
-                <form method="POST" action="{% url 'product_detail' product.id %}">
-                    {% csrf_token %}
-                    <div class="star-rating" title="You can rate this product only once.">
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="5">&#9733;</span>
-                    </div>
-                    <input type="hidden" name="score" id="rating-score" value="0">
-                    <button type="submit" name="rate">Submit Rating</button>
-                </form>
-            {% endif %}
+        {% if user_rating %}
+        <p>You have already rated this product. Your rating: {{ user_rating.score }}</p>
         {% else %}
-            <p><a href="{% url 'account_login' %}">Log in</a> to rate this product.</p>
+        <form method="POST" action="{% url 'product_detail' product.id %}">
+            {% csrf_token %}
+            <div class="star-rating" title="You can rate this product only once.">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <input type="hidden" name="score" id="rating-score" value="0">
+            <button type="submit" name="rate">Submit Rating</button>
+        </form>
+        {% endif %}
+        {% else %}
+        <p><a href="{% url 'account_login' %}">Log in</a> to rate this product.</p>
         {% endif %}
     </div>
 
     <!-- Comments -->
-    <div class="row">
-        <div class="col-12">
-            <strong class="text-secondary">
-                <i class="far fa-comments"></i> {{ comment_count }}
-            </strong>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <strong class="text-secondary">
+                    <i class="far fa-comments"></i> {{ comment_count }}
+                </strong>
+            </div>
         </div>
-        <div class="col-12">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8 mb-4 mt-3 ">
-            <h3>Comments:</h3>
-            <div class="card-body">
-                <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
-                {% for comment in comments %}
-                <div
-                    class="p-2 comments{% if not comment.author == user %} faded {% endif %}">
-                    <p class="font-weight-bold">
-                        {{ comment.author }}
-                        <span class="font-weight-normal">
-                            {{ comment.created_on }}
-                        </span> wrote:
-                    </p>
-                    <div id="comment{{ comment.id }}">
-                        {{ comment.body | linebreaks }}
+        <div class="row">
+            <div class="col-md-8 card mb-4 mt-3 ">
+                <h3>Comments:</h3>
+                <div class="card-body">
+                    {% for comment in comments %}
+                    <div
+                        class="p-2 comments{% if not comment.author == user %} d-none{% endif %}">
+                        <p class="font-weight-bold">
+                            {{ comment.author }}
+                            <span class="font-weight-normal">
+                                {{ comment.created_on }}
+                            </span> wrote:
+                        </p>
+                        <div id="comment{{ comment.id }}">
+                            {{ comment.body | linebreaks }}
+                        </div>
+                        {% if user.is_authenticated and comment.author == user %}
+                        <button class="btn btn-delete" data-comment_id="{{ comment.id }}">Delete</button>
+                        <button class="btn btn-edit" data-comment_id="{{ comment.id }}">Edit</button>
+                        {% endif %}
                     </div>
-                    {% if user.is_authenticated and comment.author == user %}
-                    <button class="btn btn-delete delete-comment-btn" data-comment_id="{{ comment.id }}" data-product_id="{{ product.id }}">Delete</button>
-                    <button class="btn btn-edit" data-comment_id="{{ comment.id }}">Edit</button>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-4 card mb-4 mt-3 ">
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                    <h3>Leave a comment:</h3>
+                    <p>Posting as: {{ user.username }}</p>
+                    <form id="commentForm" method="post" style="margin-top: 1.3em;">
+                        {{ comment_form | crispy }}
+                        {% csrf_token %}
+                        <button id="submitButton" type="submit" class="btn btn-submit btn-lg">Submit</button>
+                    </form>
+                    {% else %}
+                    <p><a href="{% url 'account_login' %}">Log in</a>to leave a comment.</p>
                     {% endif %}
                 </div>
-                <!-- Our for loop ends here -->
-                {% endfor %}
-            </div>
-        </div>
-        <div class="col-md-4 card mb-4 mt-3 ">
-            <div class="card-body">
-                {% if user.is_authenticated %}
-                <h3>Leave a comment:</h3>
-                <p>Posting as: {{ user.username }}</p>
-                <form id="commentForm" method="post" style="margin-top: 1.3em;">
-                    {{ comment_form | crispy }}
-                    {% csrf_token %}
-                    <button id="submitButton" type="submit" class="btn btn-submit btn-lg">Submit</button>
-                </form>
-                {% else %}
-                <p><a href="{% url 'account_login' %}">Log in</a> to leave a comment</p>
-                {% endif %}
             </div>
         </div>
     </div>
-</div>
-</div>  
 
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
