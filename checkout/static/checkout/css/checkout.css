@@ -64,3 +64,12 @@ select option[value=""] {
     margin: 0;
     height: 100%;
 }
+
+.keep-shopping-btn {
+    color: black;
+  }
+  
+.keep-shopping-btn:hover {
+    background-color: #f5b301;
+    color: white;
+  }

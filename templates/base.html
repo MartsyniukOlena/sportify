@@ -69,11 +69,11 @@
                                 <a href="{% url 'products' %}?sort=rating&direction=desc" class="dropdown-item" aria-current="page">By Rating</a>
                                 <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item" aria-current="page">By Category</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-tops,sportswear-bottoms,sportswear-suits,footwear">All Sportswear</a>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-tops,sportswear-bottoms,sportswear-sets,footwear">All Sportswear</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-tops">Tops</a>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-bottoms">Bottoms</a>
-                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-suits">Suits</a>
+                                <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=sportswear-sets">Sets</a>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=footwear">Footwear</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=protective-gear,game-equipment,training-equipment">All Equipment</a>
@@ -109,12 +109,14 @@
                                 <a class="dropdown-item" aria-current="page"
                                     href="{% url 'add_product' %}">Add Product</a>
                                 {% endif %}
-                                <a class="dropdown-item" aria-current="page"
-                                    href="{% url 'account_logout' %}">Sign Out</a>
+                                
                                 <a class="dropdown-item" aria-current="page"
                                     href="{% url 'profile' %}">My Account</a>
                                 <a class="dropdown-item" aria-current="page"
-                                    href="{% url 'wishlist' %}">Wishlist</a>    
+                                    href="{% url 'wishlist' %}">Wishlist</a>
+                                <div class="dropdown-divider"></div>   
+                                <a class="dropdown-item" aria-current="page"
+                                    href="{% url 'account_logout' %}">Sign Out</a>
                                 {% else %}
                                 <a class="dropdown-item" aria-current="page"
                                     href="{% url 'account_signup' %}">Sign Up</a>

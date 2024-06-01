@@ -19,8 +19,8 @@
        "pk":3,
        "model":"products.category",
        "fields":{
-          "name":"sportswear-suits",
-          "friendly_name":"Suits"
+          "name":"sportswear-sets",
+          "friendly_name":"Sets"
        }
     },
     {
@@ -59,7 +59,7 @@
        "pk":8,
        "model":"products.category",
        "fields":{
-          "name":"new_arrivals",
+          "name":"new-arrivals",
           "friendly_name":"New Arrivals"
        }
     },

@@ -2,7 +2,7 @@ main {
   flex: 1;
 }
 
-.page-container {
+body {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -421,7 +421,7 @@ small {
   border-radius: 3px;
 }
 .carousel-caption h1 {
-  color: #f5b301;
+  color: #ffcc00;
 }
 
 .carousel-caption p {
