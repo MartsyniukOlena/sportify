@@ -1,6 +1,6 @@
 Hello {{ order.full_name }}!
 
-Thank you for your purchase! We're excited to let you know that we've received your order and it is now being processed. Below are the details of your purchase:
+This is a confirmation of your order at Boutique Ado. Your order information is below:
 
 Order Number: {{ order.order_number }}
 Order Date: {{ order.date }}
@@ -13,10 +13,9 @@ Your order will be shipped to {{ order.street_address1 }} in {{ order.town_or_ci
 
 We've got your phone number on file as {{ order.phone_number }}.
 
-If you have any questions or need further assistance, please do not hesitate to contact our customer service team at {{ contact_email }}.
+If you have any questions, feel free to contact us at {{ contact_email }}.
 
-Thank you for shopping with us!
+Thank you for your order!
 
-Best regards,
-
+Sincerely,
 Sportify
