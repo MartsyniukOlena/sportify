@@ -49,7 +49,11 @@
                     </a>
                 </p>
                 {% endif %}
+                {% if product.average_rating and ratings|length > 0 %}
                 <p class="small mt-1 mb-0"><i class="fa-solid fa-star"></i> {{ average_rating }}/5 ({{ ratings|length }})</p>
+                {% else %}
+                <small class="text-muted">No Rating</small>
+                {% endif %}
                 <div class="d-flex justify-content-between align-items-center">
                     {% if request.user.is_superuser %}
                     <div class="btn-group">
@@ -136,12 +140,14 @@
     </div>
 
     <!-- Ratings -->
-    <h3>Ratings:</h3>
     <div>
-
         {% if user.is_authenticated %}
         {% if user_rating %}
         <p>You have already rated this product. Your rating: {{ user_rating.score }}</p>
+        <form method="POST" action="{% url 'delete_rating' product.id %}">
+            {% csrf_token %}
+            <button class="btn btn-delete" type="submit">Delete Rating</button>
+        </form>
         {% else %}
         <form method="POST" action="{% url 'product_detail' product.id %}">
             {% csrf_token %}
@@ -153,7 +159,7 @@
                 <span class="star" data-value="5">&#9733;</span>
             </div>
             <input type="hidden" name="score" id="rating-score" value="0">
-            <button type="submit" name="rate">Submit Rating</button>
+            <button type="submit" class="btn btn-submit" name="rate">Submit Rating</button>
         </form>
         {% endif %}
         {% else %}
@@ -162,7 +168,7 @@
     </div>
 
     <!-- Comments -->
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <strong class="text-secondary">

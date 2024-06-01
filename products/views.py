@@ -395,3 +395,11 @@ def delete_comment(request, product_id, comment_id):
         messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
 
     return redirect(reverse('product_detail', args=[product.id]))
+
+@login_required
+def delete_rating(request, product_id):
+    user = request.user
+    rating = get_object_or_404(Rating, user=user, product_id=product_id)
+    rating.delete()
+    messages.add_message(request, messages.SUCCESS, 'Rating deleted!')
+    return redirect(reverse('product_detail', args=[product_id]))

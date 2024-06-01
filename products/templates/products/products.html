@@ -68,7 +68,11 @@
                             </p>
                             {% endif %}
                             <!-- Average Rating -->
+                            {% if product.average_rating == 0 %}
+                            <small class="text-muted">No Rating</small>
+                            {% else %}
                             <p class="rating mt-1 mb-0 text-warning"><i class="fa-solid fa-star"></i> {{ product.average_rating }}</p>
+                            {% endif %}
                             <!-- Add/Remove from Wishlist -->
                             {% if request.user.is_authenticated %}
                             <div class="mt-auto">

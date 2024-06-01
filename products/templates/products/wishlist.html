@@ -39,7 +39,11 @@
                             </p>
                             {% endif %}
                             <!-- Average Rating -->
-                            <p class="rating mt-1 mb-0 text-warning"><i class="fa-solid fa-star"></i> {{ product.average_rating }}</p>
+                            {% if product.average_rating and ratings|length > 0 %}
+                            <p class="small mt-1 mb-0"><i class="fa-solid fa-star"></i> {{ average_rating }}/5 ({{ ratings|length }})</p>
+                            {% else %}
+                            <small class="text-muted">No Rating</small>
+                            {% endif %}
                             <!-- Add/Remove from Wishlist -->
                             {% if request.user.is_authenticated %}
                             <div class="mt-auto">
