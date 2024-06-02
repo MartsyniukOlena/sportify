@@ -48,7 +48,6 @@
 </head>
 
 <body>
-    <main>
     <header>
         <nav class="navbar navbar-expand-xl sticky-top">
             <div class="container">
@@ -107,8 +106,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
-                                aria-expanded="false">Profile</a>
-    
+                                aria-expanded="false">Account</a>
                             <div class="dropdown-menu">
                                 {% if user.is_authenticated %}
                                 {% if request.user.is_superuser %}
@@ -117,7 +115,7 @@
                                 {% endif %}
                                 
                                 <a class="dropdown-item" aria-current="page"
-                                    href="{% url 'profile' %}">My Account</a>
+                                    href="{% url 'profile' %}">My Profile</a>
                                 <a class="dropdown-item" aria-current="page"
                                     href="{% url 'wishlist' %}">Wishlist</a>
                                 <div class="dropdown-divider"></div>   
@@ -151,6 +149,7 @@
                 </div>
         </nav>
     </header>
+    <main>
 
     {% if messages %}
     <div class="message-container">
@@ -182,7 +181,7 @@
 
     {% block wishlist %}
     {% endblock %}
-</main>
+    </main>
     <footer class="footer">
         <div class="container">
             <div class="row align-items-center justify-content-between">
@@ -201,13 +200,13 @@
                 <div class="col-md-4 text-center mb-3 mb-md-0 logo">
                     <a class="navbar-brand" href="#">
                         <img src="{{ MEDIA_URL }}logo-s.png" width="30" height="30"
-                            class="d-inline-block align-top" alt="">
+                            class="d-inline-block align-top" alt="Sportify Logo">
                         Sportify
                     </a>
                 </div>
                 <div class="col-md-4 text-center col-lg-4">
                     <p>Keep up to date with all our latest offers</p>
-                    <a href="#" target="_blank"><i class="fab fa-facebook-square"></i> Follow us on Facebook!</a>
+                    <a href="#" rel="noopener" target="_blank" aria-label="Visit our Facebook page"><i class="fab fa-facebook-square"></i> Follow us on Facebook!</a>
                 </div>
             </div>
         </div>

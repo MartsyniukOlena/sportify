@@ -43,3 +43,15 @@
     border: 1px solid black;
     margin-top: 15px;
 }
+
+.btn-update {
+    background-color: #00796B;
+    border: 2px solid black;
+    color: white;
+  }
+  
+.btn-update:hover {
+    background-color: #f5b301;
+    border-color: black;
+    color: white;
+  }

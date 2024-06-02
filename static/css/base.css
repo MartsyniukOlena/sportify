@@ -342,14 +342,15 @@ small {
   color: white;
 }
 
-.add-btn, .btn-checkout {
+.add-btn, .btn-checkout, .btn-update {
   background-color: #00796B;
   border: 2px solid black;
   color: white;
 }
 
 .add-btn:hover,
-.btn-checkout:hover {
+.btn-checkout:hover,
+.btn-update:hover {
   background-color: #f5b301;
   border-color: black;
   color: white;
