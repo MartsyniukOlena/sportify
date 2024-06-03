@@ -55,12 +55,12 @@ input[name='q']::placeholder {
   font-weight: bold;
 }
 
-.navbar-brand:hover {
-  color: white;
+.navbar-brand img {
+  margin-right: 5px;
 }
 
-.navbar-brand img {
-  margin-right: 10px;
+.navbar-brand:hover {
+  color: #00796B;
 }
 
 .navbar-toggler {
@@ -83,11 +83,11 @@ input[name='q']::placeholder {
   color: #ffcc00;
 }
 
-.navbar-nav .nav-item.active .nav-link {
+.navbar-nav .nav-item .nav-link {
   color: #ffcc00;
 }
 
-.navbar-nav .nav-item.active .nav-link:hover {
+.navbar-nav .nav-item .nav-link:hover {
     background-color: #ffcc00;
     border-radius: 3%;
     color: #000;
@@ -128,42 +128,26 @@ input[name='q']::placeholder {
 }
 
 /* ................................Footer */
-.footer {
-  background-color: black;
-  color: #ffffff;
-  width: 100%;
-  padding: 20px 0;
+footer {
+  background-color: #000;
+  color: #ffc107;
+  padding: 10px 0;
 }
-
-
-.footer .container {
-  max-width: 100% !important;
-  padding: 0 20px;
+footer .container {
+  display: flex;
+  align-items: center;
 }
-
-.footer .col-md-4.text-center .navbar-brand {
-  font-size: 1.5rem;
-  color: #ffffff;
-  font-weight: bold;
+footer p, footer a {
+  color: #ffc107;
 }
-
-.footer a:hover,
-.footer a:focus {
-  color: #ffcc00;
-}
-
-.footer p {
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.footer a {
-  color: #ffffff;
+footer .a-footer:hover {
+  background-color: #ffc107;
+  color: #000;
   text-decoration: none;
-  margin-right: 15px;
-  transition: color 0.3s;
 }
-
+footer img {
+  vertical-align: middle;
+}
 
 /* ................................Contact Us Form */
 

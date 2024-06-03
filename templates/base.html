@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
         content="Explore Sportify, your ultimate online sporting goods store. Shop a wide range of sportswear, footwear, and sport equipment including protective gear and game equipment.">
-    <meta name="keywords" content="online sporting goods store, sportswear, sport equipment, footwear, training equipment, protective gear, game equipment">
+    <meta name="keywords" content="online sporting goods store, sporting goods shop, sportswear, sport equipment, footwear, training equipment, protective gear, game equipment">
 
     {% block corecss %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -59,10 +59,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarsExample06">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item dropdown active">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="{% url 'products' %}" data-toggle="dropdown" aria-expanded="false">
                                 All Products
                             </a>
@@ -93,7 +93,7 @@
                                 <a class="dropdown-item" aria-current="page" href="{% url 'products' %}?category=new-arrivals">New Arrivals</a>
                             </div>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'contact_request' %}">Contact</a>
                         </li>
                     </ul>
@@ -104,7 +104,7 @@
                         </button>
                     </form>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown active">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
                                 aria-expanded="false">Account</a>
                             <div class="dropdown-menu">
@@ -131,7 +131,7 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 shopping-bag">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'view_bag' %}">
                                 <div class="text-center">
                                     <div><i class="fas fa-shopping-bag fa-lg"></i></div>
@@ -182,31 +182,31 @@
     {% block wishlist %}
     {% endblock %}
     </main>
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <div class="row align-items-center justify-content-between">
-                        <div class="col-md-4 text-center col-lg-4">
-                            <p class="copyright">
-                                Copyright ©
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                            </p>
-                            <p class="mb-0 list-unstyled">
-                                <a class="mr-md-3" href="#">Terms</a>
-                                <a class="mr-md-3" href="#">Privacy</a>
-                            </p>
-                        </div>
-                <div class="col-md-4 text-center mb-3 mb-md-0 logo">
-                    <a class="navbar-brand" href="#">
+            <div class="row justify-content-between w-100">
+                <div>
+                    <p>
+                        Copyright ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                    </p>
+                    <p class="list-unstyled">
+                        <a class="mr-md-3 a-footer" href="#">Terms</a>
+                        <a class="mr-md-3 a-footer" href="#">Privacy</a>
+                    </p>
+                </div>
+                <div class="logo">
+                    <a class="navbar-brand" href="{% url 'home' %}">
                         <img src="{{ MEDIA_URL }}logo-s.png" width="30" height="30"
                             class="d-inline-block align-top" alt="Sportify Logo">
                         Sportify
                     </a>
                 </div>
-                <div class="col-md-4 text-center col-lg-4">
+                <div>
                     <p>Keep up to date with all our latest offers</p>
-                    <a href="#" rel="noopener" target="_blank" aria-label="Visit our Facebook page"><i class="fab fa-facebook-square"></i> Follow us on Facebook!</a>
+                    <a class="a-footer" href="https://www.facebook.com/profile.php?id=61560789621225" rel="noopener" target="_blank" aria-label="Visit our Facebook page"><i class="fab fa-facebook-square"></i> Follow us on Facebook!</a>
                 </div>
             </div>
         </div>
