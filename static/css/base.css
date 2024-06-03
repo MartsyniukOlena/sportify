@@ -149,6 +149,19 @@ footer img {
   vertical-align: middle;
 }
 
+#mc_embed_shell {
+  background: #00796B;
+  clear: left;
+  font-size: 14px;
+  width: 100%;
+  max-width: 500px;
+  padding: 5px;
+}
+
+#mc_embed_shell{
+  border-radius: 3px;
+}
+
 /* ................................Contact Us Form */
 
 .contact-form .form-control {
@@ -177,7 +190,7 @@ footer img {
 
 /* .......................................Hero Section */
 .products-section {
-  background: url('/media/tennis-racket.jpg') no-repeat center center;
+  background: url('/media/tennis-racket.webp') no-repeat center center;
   background-size: cover;
   width: 100%;
   height: 250px;
