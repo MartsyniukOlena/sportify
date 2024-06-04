@@ -6,25 +6,23 @@
     <div class="container">
         <div class="col-12 col-md-6 order-md-first product-count">
             <p class="mt-3 text-center text-md-left">
-                {% if request.user.is_authenticated %}
                 <span class="small"><a href="{% url 'products' %}">Back to Products</a> | </span>
                 <span>You have {{ products_in_wishlist }} product(s) in your wishlist.</span>
-                {% endif %}
             </p>
         </div>
         <div class="album">
         <div class="container">
             <div class="row">
-                {% for product in request.user.favorite.all %}
-                <div class="col-md-4">
+                {% for product in wishlist_products %}
+                <div class="col-md-4 my-2">
                     <div class="card mb-4">
                         {% if product.image %}
                         <a href="{% url 'product_detail' product.id %}">
-                            <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                            <img class="img-thumbnail mx-auto" src="{{ product.image.url }}" alt="{{ product.name }}">
                         </a>
                         {% else %}
                         <a href="{% url 'product_detail' product.id %}">
-                            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                            <img class="img-thumbnail mx-auto" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
                         </a>
                         {% endif %}
                         <div class="card-body d-flex flex-column">
@@ -39,40 +37,21 @@
                             </p>
                             {% endif %}
                             <!-- Average Rating -->
-                            {% if product.average_rating and ratings|length > 0 %}
-                            <p class="small mt-1 mb-0"><i class="fa-solid fa-star"></i> {{ average_rating }}/5 ({{ ratings|length }})</p>
-                            {% else %}
+                            {% if product.average_rating == 0 %}
                             <small class="text-muted">No Rating</small>
+                            {% else %}
+                            <p class="rating mt-1 mb-0 text-warning"><i class="fa-solid fa-star"></i> {{ product.average_rating }}</p>
                             {% endif %}
                             <!-- Add/Remove from Wishlist -->
-                            {% if request.user.is_authenticated %}
-                            <div class="mt-auto">
-                                {% if product.is_in_wishlist %}
+                            {% if wishlist_products %}
                                 <form method="post" action="{% url 'remove_from_wishlist' product.id %}?next={{ request.path }}">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-link p-0 m-0" style="color: red;" title="Remove from Wishlist">
-                                        <i class="fa-solid fa-heart"></i>
+                                    <i class="fa-solid fa-heart"></i>
                                     </button>
                                 </form>
-                                {% else %}
-                                <form method="post" action="{% url 'add_to_wishlist' product.id %}?next={{ request.path }}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-link p-0 m-0" style="color: red;" title="Add to Wishlist">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </button>
-                                </form>
-                                {% endif %}
-                            </div>
-                            {% else %}
-                            <p><a href="{% url 'account_login' %}" class="text-primary">Log in</a> to add this product to your wishlist.</p>
                             {% endif %}
                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                {% if request.user.is_superuser %}
-                                <div class="btn-group">
-                                    <a href="{% url 'edit_product' product_id=product.id %}" class="text-info">Edit</a>
-                                    <a class="text-danger" href="{% url 'delete_product' product_id=product.id %}">Delete</a>
-                                </div>
-                                {% endif %}
                                 <small class="text-body-secondary">${{ product.price }}</small>
                             </div>
                         </div>

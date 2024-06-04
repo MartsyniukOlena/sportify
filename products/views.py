@@ -254,7 +254,7 @@ def delete_product(request, product_id):
     messages.success(request, 'Product deleted!')
     return redirect(reverse('products'))
 
-
+@login_required
 def wishlist(request):
     """
     Displays the wishlist page.
@@ -275,14 +275,15 @@ def wishlist(request):
     products_in_wishlist = 0
     if request.user.is_authenticated:
         products_in_wishlist = request.user.favorite.count()
-        
+
     if request.user.is_authenticated:
-        return render(request, 'products/wishlist.html', {'products_in_wishlist': products_in_wishlist})
+        wishlist_products = request.user.favorite.all()
+        return render(request, 'products/wishlist.html', {'products_in_wishlist': products_in_wishlist, 'wishlist_products': wishlist_products})
     else:
         messages.error(request, 'You need to be logged in to view your wishlist.')
         return redirect('account_login')
 
-
+@login_required
 def add_to_wishlist(request, product_id):
     """
     Adds a product to the user's wishlist.
@@ -308,7 +309,7 @@ def add_to_wishlist(request, product_id):
         messages.error(request, 'You need to be logged in to add products to your wishlist.')
         return redirect('account_login')
 
-
+@login_required
 def remove_from_wishlist(request, product_id):
     """
     Removes a product from the user's wishlist.
@@ -336,7 +337,7 @@ def remove_from_wishlist(request, product_id):
         messages.error(request, 'You need to be logged in to remove products from your wishlist.')
         return redirect('account_login')
 
-
+@login_required
 def edit_comment(request, product_id, comment_id):
     """
     Display an individual comment for edit.
@@ -373,7 +374,7 @@ def edit_comment(request, product_id, comment_id):
     }
     return render(request, 'products/edit_comment.html', context)
 
-
+@login_required
 def delete_comment(request, product_id, comment_id):
     """
     Delete an individual comment.
