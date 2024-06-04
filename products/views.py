@@ -10,6 +10,7 @@ from .forms import ProductForm, RatingForm, CommentForm
 
 # Create your views here.
 
+
 def all_products(request):
     """ A view to show all products, including sorting and search queries """
 
@@ -39,7 +40,7 @@ def all_products(request):
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
             products = products.order_by(sortkey)
-            
+
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
             products = products.filter(category__name__in=categories)
@@ -50,7 +51,7 @@ def all_products(request):
             if not query:
                 messages.error(request, "You didn't enter any search criteria!")
                 return redirect(reverse('products'))
-            
+
             queries = Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query)
             products = products.filter(queries)
 
@@ -87,7 +88,6 @@ def product_detail(request, product_id):
     if request.user.is_authenticated:
         user_rating = Rating.objects.filter(product=product, user=request.user).first()
 
-    
     if request.method == 'POST' and 'rate' in request.POST:
         form = RatingForm(request.POST)
         if user_rating:
@@ -112,8 +112,7 @@ def product_detail(request, product_id):
             comment.author = request.user
             comment.product = product
             comment.save()
-            messages.add_message(request, messages.SUCCESS,
-            'Comment submitted')
+            messages.add_message(request, messages.SUCCESS, 'Comment submitted')
             return redirect('product_detail', product_id=product.id)
     else:
         comment_form = CommentForm()
@@ -167,7 +166,7 @@ def add_product(request):
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
         form = ProductForm()
-        
+
     template = 'products/add_product.html'
     context = {
         'form': form,
@@ -254,6 +253,7 @@ def delete_product(request, product_id):
     messages.success(request, 'Product deleted!')
     return redirect(reverse('products'))
 
+
 @login_required
 def wishlist(request):
     """
@@ -265,7 +265,7 @@ def wishlist(request):
     **Context**
 
     ``products_in_wishlist``
-        The count of products in the user's wishlist.
+    The count of products in the user's wishlist.
 
     **Template:**
 
@@ -282,6 +282,7 @@ def wishlist(request):
     else:
         messages.error(request, 'You need to be logged in to view your wishlist.')
         return redirect('account_login')
+
 
 @login_required
 def add_to_wishlist(request, product_id):
@@ -308,6 +309,7 @@ def add_to_wishlist(request, product_id):
     else:
         messages.error(request, 'You need to be logged in to add products to your wishlist.')
         return redirect('account_login')
+
 
 @login_required
 def remove_from_wishlist(request, product_id):
@@ -337,6 +339,7 @@ def remove_from_wishlist(request, product_id):
         messages.error(request, 'You need to be logged in to remove products from your wishlist.')
         return redirect('account_login')
 
+
 @login_required
 def edit_comment(request, product_id, comment_id):
     """
@@ -353,7 +356,7 @@ def edit_comment(request, product_id, comment_id):
 
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST, instance=comment)
-        
+
         if comment_form.is_valid() and comment.author == request.user:
             comment = comment_form.save(commit=False)
             comment.product = product
@@ -363,16 +366,17 @@ def edit_comment(request, product_id, comment_id):
             return redirect(reverse('product_detail', args=[product.id]))
         else:
             messages.add_message(request, messages.ERROR, 'Error updating comment!')
-    
+
     else:
         comment_form = CommentForm(instance=comment)
-    
+
     context = {
         'product': product,
         'comment': comment,
         'comment_form': comment_form,
     }
     return render(request, 'products/edit_comment.html', context)
+
 
 @login_required
 def delete_comment(request, product_id, comment_id):
@@ -396,6 +400,7 @@ def delete_comment(request, product_id, comment_id):
         messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
 
     return redirect(reverse('product_detail', args=[product.id]))
+
 
 @login_required
 def delete_rating(request, product_id):

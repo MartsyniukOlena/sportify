@@ -149,14 +149,11 @@ footer img {
   vertical-align: middle;
 }
 
-#mc_embed_shell {
-  background: #00796B;
-  font-size: 14px;
+#mc_embed_signup {
+  background: #fff;
   width: 100%;
-  max-width: 500px;
-}
-
-#mc_embed_shell{
+  max-width: 600px;
+  padding: 1px;
   border-radius: 3px;
 }
 
@@ -256,6 +253,7 @@ footer img {
 
 .card {
   border-radius: 3px;
+  border: 1px solid black;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -284,6 +282,16 @@ footer img {
 
 .card-text a:hover {
   color: #ffcc00;
+}
+
+.text-login {
+  color: darkblue;
+  text-decoration: underline;
+}
+
+.text-login:hover {
+  color: blue;
+  text-decoration: underline;
 }
 
 .small {

@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import ContactRequest
 from .forms import ContactRequestForm
 
+
 def contact_request(request):
     if request.method == 'POST':
         form = ContactRequestForm(request.POST)
