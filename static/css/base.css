@@ -419,6 +419,7 @@ small {
 }
 .carousel-caption .h2 {
   color: #ffcc00;
+  font-size: 6vw;
 }
 
 .carousel-caption p {
@@ -434,6 +435,24 @@ small {
   color: black;
   background-color: #ffcc00;
   border-color: #ffcc00;
+}
+
+@media (min-width: 768px) {
+  .carousel-caption .h2 {
+      font-size: 4vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .carousel-caption .h2 {
+      font-size: 3vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  .carousel-caption .h2 {
+      font-size: 2vw;
+  }
 }
 
 /* ------------------------------- bootstrap toasts */
