@@ -345,7 +345,7 @@ small {
   color: white;
 }
 
-.add-btn, .btn-checkout, .btn-update {
+.add-btn, .btn-checkout, .btn-update .btn-back {
   background-color: #00796B;
   border: 2px solid black;
   color: white;
@@ -353,7 +353,8 @@ small {
 
 .add-btn:hover,
 .btn-checkout:hover,
-.btn-update:hover {
+.btn-update:hover,
+.btn-back:hover {
   background-color: #f5b301;
   border-color: black;
   color: white;
@@ -576,8 +577,8 @@ small {
 /* Allauth form formatting */
 
 .allauth-form-inner-content p {
-  margin-top: 1.5rem; /* mt-4 */
-  color: #343a40; /* text-secondary */
+  margin-top: 1.5rem;
+  color: #343a40;
 }
 
 .allauth-form-inner-content input {
