@@ -76,7 +76,6 @@ input[name='q']::placeholder {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%2877, 77, 77, 0.7%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-
 .navbar-nav .nav-link {
   color: #ffffff;
   margin: 0 10px;
@@ -115,8 +114,6 @@ input[name='q']::placeholder {
   color: black;
 }
 
-
-
 .btn-outline-dark {
   color: #ffffff;
   border-color: #ffffff;
@@ -133,20 +130,19 @@ input[name='q']::placeholder {
 footer {
   background-color: black;
   color: #ffc107;
-  padding: 10px 0;
+  padding: 10px 5px;
 }
-footer .container {
-  display: flex;
-  align-items: center;
-}
+
 footer p, footer a {
   color: #ffc107;
 }
+
 footer .a-footer:hover {
   background-color: #ffc107;
   color: black;
   text-decoration: none;
 }
+
 footer img {
   vertical-align: middle;
 }
@@ -419,16 +415,18 @@ small {
 }
 .carousel-caption .h2 {
   color: #ffcc00;
-  font-size: 6vw;
+  font-size: 6;
 }
 
 .carousel-caption p {
   color: #fff;
+  font-size: 4vw;
 }
 
 .carousel-caption .btn {
   background-color: #00796B;
   color: #fff;
+  font-size: 4vw;
 }
 
 .carousel-caption .btn:hover {
@@ -441,17 +439,41 @@ small {
   .carousel-caption .h2 {
       font-size: 4vw;
   }
+
+  .carousel-caption p {
+    font-size: 3vw;
+  }
+
+  .carousel-caption .btn {
+    font-size: 3vw;
+  }
 }
 
 @media (min-width: 992px) {
   .carousel-caption .h2 {
       font-size: 3vw;
   }
+
+  .carousel-caption p {
+    font-size: 2vw;
+  }
+
+  .carousel-caption .btn {
+    font-size: 2vw;
+  }
 }
 
 @media (min-width: 1200px) {
   .carousel-caption .h2 {
       font-size: 2vw;
+  }
+
+  .carousel-caption p {
+    font-size: 1vw;
+  }
+
+  .carousel-caption .btn {
+    font-size: 1vw;
   }
 }
 
