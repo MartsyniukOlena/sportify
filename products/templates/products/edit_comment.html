@@ -1,15 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-
 {% block content %}
-<!-- HTML Form Structure -->
 <form id="commentForm" method="post" action="{% url 'edit_comment' product.id comment.id %}/">
     {% csrf_token %}
     <textarea id="id_body" name="body">{{ comment.body }}</textarea>
     <button id="submitButton" type="submit">Submit</button>
 </form>
-
-<!-- Edit Button -->
 <button class="btn btn-edit" data-comment_id="{{ comment.id }}">Edit Comment</button>
 {% endblock %}
