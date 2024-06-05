@@ -417,7 +417,7 @@ small {
   padding: 20px;
   border-radius: 3px;
 }
-.carousel-caption h1 {
+.carousel-caption .h2 {
   color: #ffcc00;
 }
 
