@@ -350,6 +350,7 @@ Update Button: A button to submit the form and update the delivery information.
 Order History Table: A table displaying past orders.
 
 __Checkout Process__
+
 Order Summary: List of items with images, details, and totals.
 Checkout Form: Sections for personal details, delivery info, and payment.
 Action Buttons: Adjust Bag, Complete Order, and charge notification.
@@ -633,20 +634,22 @@ My Profile Page
 ![My Profile Page](readme-media/my-profile-testing.png)
 Wishlist
 ![Wishlist](readme-media/wishlist-testing.png)
-Add Product - Edit Product
-![Add-Edit Product](readme-media/add-edit-product-testing.png)
+Add Product - Edit Product - Delete Product
+![Add-Edit Product](readme-media/add-edit-delete-product-testing.png)
 Product Detail Page
 ![Product Detail Page](readme-media/product-listing-page-testing.png)
 Bag
 ![Bag](readme-media/bag-testing.png)
 Checkout
 ![Checkout](readme-media/checkout-testing.png)
-Checkout Success
-![Checkout Success](readme-media/checkout-success-testing.png)
+Checkout Success & Past Orders Summary
+![Checkout Success](readme-media/checkout-success-past-orders-testing.png)
 Navbar & Footer
 ![Navbar](readme-media/navbar-footer-testing.png)
+Signing up
+![Signing up](readme-media/sign-up-testing.png)
 
-User stories can be found here - 
+User stories can be found here - https://github.com/users/MartsyniukOlena/projects/12/views/1
 
 ## Facebook Page
 ![Facebook](readme-media/facebook-page.png)
