@@ -30,7 +30,7 @@ The Navigation Bar is featured on all pages of the website. It is fixed. It enha
 
 Navbars are different for registered, not registered users and for a superuser.
 
-The navbar includes the Logo, Home page, All Products drop-down menu, Contact page, Search form, Account drop-down menu(Sign In, Sign Up), and Shopping bag.
+The navbar includes the Logo, Home page, All Products drop-down menu, Contact page, Search form, Account drop-down menu, and Shopping bag.
 
 ![Navigation bar](readme-media/navbar.png)
 ![Navigation bar sm](readme-media/navbar-sm.png)
@@ -56,11 +56,11 @@ It allows users to navigate through various categories and subcategories of prod
 
 ![All Sportswear](readme-media/all-sportswear-cat.png)
 
-<ins>All Equipment</ins> accesses all equipment categories or can be accesses by subcategories  Protective Gear, Game Equipment, Training Equipment.
+<ins>All Equipment</ins> accesses all equipment categories or can be accesses by subcategories - Protective Gear, Game Equipment, Training Equipment.
 
 ![All Equipment](readme-media/all-equipment-cat.png)
 
-<ins>Special Offers</ins> accesses all categories or can be accesses by subcategories Sale, New Arrivals.
+<ins>Special Offers</ins> accesses all categories or can be accesses by subcategories - Sale, New Arrivals.
 
 ![Special Offers](readme-media/special-offers-cat.png)
 
@@ -70,6 +70,7 @@ It helps users quickly find specific products. The search functionality searches
 Back to Products link allow users to go back to the products listing page, view the total number of products available.
 
 ![Search Results](readme-media/search-display-test.png)
+
 ![Search Results](readme-media/searching-existing.png)
 
 
@@ -95,18 +96,19 @@ The carousel showcases visually appealing images related to the website's conten
 
 __Products Listing Page__
 
-##### Recipe Entries Display:
+##### Products Entries Display:
 
 The page displays a list of products entries, each presented as a card with details such as name, image, category, rating, price, and Add to Wishlist option. It provides users with a visually appealing layout for browsing multiple products at once.
 Prodcts images and names are clickable, linking to the detailed view of each product. It enables seamless navigation to individual product pages for users interested in exploring further details.
-Category name is clickable. Upon clicking it displays all products for that category.
+Category name is clickable. Upon clicking products are cateorized by the selected category.
+A message "Log in to add the product to wishlist" is displayed for not loggedin users.
+Rating shows average rating of the product. If no rating, it display "No Rating".
 
 ![Products Entries Display](readme-media/product-listing.png)
 
 ##### Product Sorting accourding to Category
 
-This feature displays which categories are currently selected for filtering and displayes the amout of products found.
-The purpose of this feature is to provide users with a way to navigate through the products available on the website.
+Category badge shows category or categories selected and is displayed near product count. Products are cateorized by the selected category.
 
 Back to Products link allow users to go back to the products listing page, view the total number of products available.
 
@@ -128,19 +130,19 @@ It allows users to send a message or inquiry to the administrator by filling out
 
 __Wishlist:__
 
-It gathers and presents all products that the user likes for later access. It enhances user experience by providing an organized and visually appealing way to browse through saved products. User can remove the product from the wishlist by clicking on the heart.
+It gathers and presents all products that the user likes for later access. It enhances user experience by providing an organized and visually appealing way to browse through saved products. User can remove the product from the wishlist by clicking on the heart. It is available for registered users only.
 
 ![Favorite Products](readme-media/wishlist.png)
 
 __My profile:__
 
-The purpose of a profile page is to view and update their profile information and view order history. It is convenient to store default delivery information to simplify the checkout process for users. The order history allows users to keep track of their past purchases, making it easier for them to review previous orders.
+The purpose of a profile page is to view and update users' default delivery information and view order history. It is convenient to store default delivery information to simplify the checkout process for users. The order history allows users to keep track of their past purchases, making it easier for them to review previous orders. It is available for registered users only.
 
 ![My Profile](readme-media/my-profile.png)
 
 __Product Detail Page__
 
-The page displays detailed information about a specific product, including its image, title, description, category, average rating, price, size if applicable, quantity, navigation buttons "Keep Shopping" and "Add to Bag", Rating Form(for registered users),Leave a comment form(for registered users), and comments itself.
+The page displays detailed information about a specific product, including its image, title, description, category, average rating, price, size if applicable, quantity, navigation buttons "Keep Shopping" and "Add to Bag", Add to Wishlist or Remove from Wishlist(for registered users), Rating Form(for registered users),Leave a comment form(for registered users), and comments itself.
 
 Provides users with comprehensive information about the product, helping them decide whether to buy it.
 
@@ -233,7 +235,7 @@ __404__
 
 It is displayed when a user tries to access a URL that does not exist or is not available. It ensures the user understands why they are not seeing the page. It has the link to homepage for navigation.
 
-![404]()
+![404](readme-media/404.png)
 
 __User Authentication__
 
@@ -330,9 +332,9 @@ Get in Touch Form: A form for users to submit contact request.
 
 __Purchase Process:__
 
-Shopping Cart: Users can add products to a shopping cart and proceed to checkout.
+Shopping Cart: Users can add products to a shopping bag, view it, update items, delete items or proceed to checkout.
 Payment Integration: Secure payment support.
-checkout form
+Checkout form: The checkout form collects necessary information as users details, delivery information, payment details. The form validates the input to prevent errors.
 
 __Wishlist__
 
@@ -352,11 +354,11 @@ Order Summary: List of items with images, details, and totals.
 Checkout Form: Sections for personal details, delivery info, and payment.
 Action Buttons: Adjust Bag, Complete Order, and charge notification.
 Loading Overlay: Spinner indicating payment processing.
-After uccessful payment the user is redirected to Checkout success page.
+After successful payment the user is redirected to Checkout success page.
 Order Confirmation: Details including order number, date, items, delivery, and billing information.
 Back Button: Link to either profile for registered users or latest deals for not registered users.
 
-__Add and Edit Recipe Page:__
+__Add and Edit Prodct Page:__
 
 Form Design: Intuitive form for a superusers to input product details
 Validation: Validation checks to ensure all required fields are filled out correctly.
@@ -537,8 +539,9 @@ The website was tested in different browsers - Chrome, Firefox, Edge
 The website was tested in Windows and Android.
 
 ### Bugs resoled and unresolved:
+Unresolved Bugs: No Known bugs
 
-    No Known bugs
+Resolved bugs: The link in the wishlist "Add to wishlist" did not change to "Remove from Wishlist" on the product card display. It was not possible to remove the product from the wishlist from the general product listing, only from the product detail page.
 
 ### Performance Testing:
 
@@ -616,7 +619,114 @@ Python: No errors were found when passing through the [pep8ci](https://pep8ci.he
 
 JS Hint: No errors were found when passing through the [Jshint](https://jshint.com/)
 
+
+
 ### Features and User Stories Testing
 
+Home Page
+![Home Page](readme-media/home-page-testing.png)
+Products Page
+![Products Page](readme-media/product-listing-page-testing.png)
+Contact Page
+![Contact Page](readme-media/contact-page-testing.png)
+My Profile Page
+![My Profile Page](readme-media/my-profile-testing.png)
+Wishlist
+![Wishlist](readme-media/wishlist-testing.png)
+Add Product - Edit Product
+![Add-Edit Product](readme-media/add-edit-product-testing.png)
+Product Detail Page
+![Product Detail Page](readme-media/product-listing-page-testing.png)
+Bag
+![Bag](readme-media/bag-testing.png)
+Checkout
+![Checkout](readme-media/checkout-testing.png)
+Checkout Success
+![Checkout Success](readme-media/checkout-success-testing.png)
+Navbar & Footer
+![Navbar](readme-media/navbar-footer-testing.png)
+
+User stories can be found here - 
+
+## Facebook Page
+![Facebook](readme-media/facebook-page.png)
+![Facebook](readme-media/facebook-page-2.png)
+![Facebook](readme-media/facebook-page-3.png)
 
 
+## Deployment
+
+Steps for deployment:
+
+### Create the Heroku App:
+
+- Log in to [Heroku](https://id.heroku.com/) or create an account.
+- On the main page click the button labelled New in the top right corner and from the drop-down menu select "Create New App".
+- Enter a unique and meaningful app name.
+- Select your region.
+- Click on the Create App button.
+
+### Attach the Postgres Database:
+- Add the DATABASE_URL in Config Vars in the Settings Tab.
+
+### Prepare the Environment and settings.py File:
+- In your GitPod workspace, create an env.py file in the main directory.
+- Add the DATABASE_URL and  SECRET_KEY value to the env.py file.
+- Update the settings.py file to import the env.py file and add the SECRET_KEY and DATABASE_URL file paths.
+- Comment out the default database configuration.
+- Save files and make migrations.
+- Add the STATIC files settings - the URL, storage path, directory path, root path, media URL, and default file storage path.
+- Link the file to the templates directory in Heroku.
+- Change the templates directory to TEMPLATES_DIR.
+- Add Heroku to the ALLOWED_HOSTS list in the format ['app_name.heroku.com'].
+
+### Create files / directories
+- Create requirements.txt file
+- create runtime txt.
+- Create a file named "Procfile" in the main directory and add the following: web: gunicorn project-name.wsgi
+
+Add the necessary Config Vars to Heroku for AWS, Stripe, Email, Collectstatic.
+
+### Deploy
+
+- Ensure in Django settings, DEBUG is 'DEVELOPMENT' in os.environ
+- Go to the deploy tab on Heroku and connect to GitHub, then to the required repository.
+- Scroll to the bottom of the deploy page and either click Enable Automatic Deploys for automatic deploys or Deploy Branch to deploy manually. 
+- Click View to view the deployed site.
+- The site is now live and operational.
+
+## Technologies
+
+- [Django](https://www.djangoproject.com/) - web framework for building the website.
+- [Django-allauth](https://django-allauth.readthedocs.io/en/latest/installation.html) - an authentication system for Django to handle user authentication, registration, account management.
+- [Gunicorn](https://gunicorn.org/) - served as a production-ready server for running Django applications.
+- [Psycopg2](https://www.psycopg.org/docs/) - enabled Django to interact with PostgreSQL databases.
+- [PostgreSQL](https://www.postgresql.org/) - relational database management system.
+- [Heroku](https://dashboard.heroku.com/login) - cloud-based platform used for deploying the site.
+- [Responsinator](http://www.responsinator.com/) - program used to check how the site looks on the different devices.
+- [Chrome Dev Tools](https://developer.chrome.com/docs/devtools/) - used during all website development for checking outcomes and for testing responsiveness and performance.
+- [GitHub](https://github.com/) - stores, manages and allows to share the code.
+- [Google Fonts](https://fonts.google.com/) - used to import fonts.
+- [pep8ci](https://pep8ci.herokuapp.com/) - checked the Python code to ensure adherence to PEP8 standards.
+- [Jshint](https://jshint.com/) - validated javascript code.
+- [W3C Validator](https://validator.w3.org/) - validated html code.
+- [W3C Validator](https://jigsaw.w3.org/css-validator/validator) - validated css code.
+- [Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/) - a library that integrates Bootstrap 5 with Django forms through Django-Crispy-Forms. It provides 
+   Bootstrap 5 styling for Django forms.
+- [WhiteNoise](https://whitenoise.readthedocs.io/en/latest/) - it was used to serve static files efficiently in production environments.
+- [AWS](https://eu-central-1.console.aws.amazon.com/) - it was used for storing and serving static and media files in the application.
+- [Bootstrap 4.6](https://getbootstrap.com/docs/4.6/getting-started/introduction/) - used to create responsive, mobile-first front-end website.
+- [GraphViz](https://django-extensions.readthedocs.io/en/latest/graph_models.html) - to map models
+country field extension
+- [Stripe](https://www.stripe.com) - payment integration
+
+## Credits and References
+
+- [Code Institute: Walkthrough Project - Boutique Ado](https://github.com/Code-Institute-Solutions/Django3blog)
+- [Portfolio Project 4](https://github.com/MartsyniukOlena/recipes-website)
+- [Font Awesome](https://fontawesome.com/) - used for icons.
+- [Grammarly](https://app.grammarly.com/) - used to check grammar and edit text.
+- [ColorsSpace](https://mycolor.space/) - used to create colors.
+- "noimage available" photo was downloaded from depositphotos on google images.
+- [Pexels](https://www.pexels.com/) - carousel and header images were downloaded from Pexel.
+- [Pinterest](https://www.pinterest.com/pin/272327108710190873/) - products photos were downloaded from Pinterest.
