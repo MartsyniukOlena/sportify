@@ -73,3 +73,15 @@ select option[value=""] {
     background-color: #f5b301;
     color: white;
   }
+
+.btn-back {
+    background-color: #00796B;
+    border: 2px solid black;
+    color: white;
+  }
+  
+  .btn-back:hover {
+    background-color: #f5b301;
+    border-color: black;
+    color: white;
+  }

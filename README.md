@@ -402,13 +402,15 @@ Messages enhance the user experience by providing immediate feedback, helping us
 
 ![Confirmation email sent](readme-media/alert-confirmation-email-message.png)
 
-![Editing Prodct](readme-media/alert-product-edit-message.png)
+![Editing Product](readme-media/alert-product-edit-message.png)
 
 ![Email Confirmed](readme-media/email-confirmed-message.png)
 
 ![Empty Search Criteria](readme-media/empty-search-message.png)
 
 ![Order Proccesses](readme-media/order-proccessed-message.png)
+
+![Invalid Form Error](readme-media/invalid-form-error.png)
 
 ### Modal Dialogs:
 

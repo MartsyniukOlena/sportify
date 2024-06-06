@@ -50,6 +50,23 @@ input[name='q']::placeholder {
   padding: 10px 0;
 }
 
+header nav .nav-link {
+  display: inline-block;
+  padding: 10px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: left;
+}
+
+.navbar-nav .shopping-bag {
+  margin-left: auto;
+}
+
 .navbar {
   background-color: black;
 }
@@ -381,13 +398,13 @@ small {
 .btn-rate, .btn-submit {
   background-color: #00796B !important;
   color: #fff;
-  border: none !important;
+  border: 2px solid black;
 }
 
 .btn-rate:hover, .btn-submit:hover {
   background-color: #f5b301 !important;
   color: #fff;
-  border: none !important;
+  border: 2px solid black;
 }
 
 /* .................................... Carousel */
